@@ -1,0 +1,371 @@
+/* Goa page styling - matches your other state pages with Goa colors */
+.goa-page {
+  background: url('../images/goa1.jpg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+}
+
+/* Title */
+.title-section {
+  text-align: center;
+  padding: 50px 20px 20px;
+  background: rgba(0,0,0,0.35);
+}
+.title-section h1 {
+  font-size: 60px;
+  margin: 0;
+  letter-spacing: 2px;
+  color: #fff8e1;
+}
+.title-section h3 {
+  font-size: 22px;
+  font-weight: 300;
+  margin-top: 8px;
+  color: #ffecc7;
+}
+
+/* Content Layout */
+.bihar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 40px;
+  gap: 30px;
+}
+
+/* Glass Effect Boxes */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  flex: 1;
+}
+
+/* Intro Text */
+.intro-box p {
+  text-align: justify;
+  line-height: 1.6;
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: #fff;
+}
+
+/* Map Box */
+.map-box {
+  flex: 1;
+  padding: 10px;
+}
+.map-note {
+  font-size: 14px;
+  margin-top: 10px;
+  color: #ffe0b2;
+  font-style: italic;
+}
+
+/* State Box */
+.state-box {
+  margin: 60px auto;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.45);
+  max-width: 1300px;
+  color: #fff;
+}
+
+/* State Title */
+.state-title {
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 35px;
+  color: #ffd54f;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+}
+
+/* Cities Container */
+.cities-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+/* City Box */
+.city-box {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.city-box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+}
+
+/* City Title */
+.city-title {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #fff3e0;
+  border-bottom: 2px solid rgba(255,255,255,0.06);
+  padding-bottom: 6px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+/* List Styling */
+.city-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 280px;
+  overflow-y: auto;
+}
+.city-box ul li {
+  margin: 8px 0;
+  font-size: 15px;
+  line-height: 1.4;
+  position: relative;
+  padding-left: 20px;
+}
+.city-box ul li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #ffcc80;
+  font-size: 14px;
+}
+
+/* Places Section */
+.places-section {
+  padding: 60px 40px;
+  text-align: center;
+}
+.section-title {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #fff8e1;
+}
+.places-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+.place-card {
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.place-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.place-card:hover {
+  transform: scale(1.05);
+}
+
+/* Buttons */
+.book-btn {
+  margin-top: 12px;
+  padding: 10px 15px;
+  border: none;
+  background: #ff7043;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.book-btn:hover {
+  background: #ff5722;
+}
+
+/* Stay & Food Section */
+.intro-highlight {
+  max-width: 850px;
+  margin: 30px auto;
+  padding: 25px 35px;
+  font-size: 20px;
+  line-height: 1.8;
+  color: #fff;
+  text-align: center;
+  border-radius: 18px;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  font-family: "Segoe UI", sans-serif;
+}
+
+.mirror-title {
+  width: fit-content;
+  margin: 40px auto 25px;
+  padding: 14px 40px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+  backdrop-filter: blur(18px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  text-align: center;
+}
+.mirror-title h2 {
+  margin: 0;
+  font-size: 28px;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Grids */
+.hotels-slider, .foods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin: 20px 0 50px;
+}
+.hotel-card, .food-card {
+  text-align: center;
+  padding: 18px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hotel-card:hover, .food-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+.hotel-card img, .food-card img {
+  width: 100%;
+  border-radius: 14px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+/* Buttons (book/confirm) */
+.book-btn, .confirm-btn {
+  margin-top: 12px;
+  padding: 8px 18px;
+  font-size: 15px;
+  border-radius: 22px;
+  border: none;
+  background: linear-gradient(135deg, #ff7043, #ff5722);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+.book-btn:hover, .confirm-btn:hover {
+  transform: scale(1.07);
+}
+
+/* Booking Modal */
+.booking-modal {
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  background: rgba(255,255,255,0.98);
+  padding: 25px;
+  border-radius: 20px;
+  z-index: 1000;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.35);
+  animation: fadeIn 0.4s ease;
+}
+.booking-modal h3 {
+  text-align: center;
+  margin-bottom: 18px;
+  color: #222;
+  font-size: 22px;
+  font-weight: 700;
+}
+.booking-modal label {
+  display: block;
+  margin-top: 12px;
+  font-size: 15px;
+  color: #333;
+  font-weight: 500;
+}
+.booking-modal input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #bbb;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 900;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Fade Animation */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+/* Attractions Section */
+.attractions-section {
+  padding: 50px 20px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 16px;
+  margin: 40px auto;
+  color: #fff;
+  max-width: 1200px;
+}
+.section-title { text-align: center; font-size: 40px; margin-bottom: 10px; color: #ffe082; font-weight: bold; }
+.section-intro { text-align: center; font-size: 18px; margin-bottom: 30px; color: #fff3e0; }
+.sub-title { font-size: 24px; margin: 30px 0 15px; border-left: 5px solid #ff7043; padding-left: 10px; color: #ffd54f; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.attraction-card { background: rgba(255,255,255,0.03); backdrop-filter: blur(12px); border-radius: 12px; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.3s ease, box-shadow 0.3s ease; text-align: center; }
+.attraction-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
+.attraction-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
+.attraction-card h4 { font-size: 18px; margin: 5px 0; color: #ffeb3b; }
+.attraction-card p { margin: 3px 0; font-size: 14px; color: #fff; }
+.attraction-card .comment { font-style: italic; color: #ffd8a8; }
+
+/* Booking Popup */
+.booking-popup {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.booking-box {
+  background: #fff;
+  color: #333;
+  padding: 20px;
+  border-radius: 12px;
+  width: 320px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  text-align: left;
+  position: relative;
+}
+.booking-box h3 { margin-bottom: 15px; text-align: center; color: #ff7043; }
+.booking-box label { display: block; margin: 8px 0 5px; font-weight: bold; font-size: 14px; }
+.booking-box input { width: 100%; padding: 8px; margin-bottom: 12px; border: 1px solid #ccc; border-radius: 6px; }
+.confirm-btn { background: #ff7043; color: white; padding: 10px; width: 100%; border: none; border-radius: 6px; cursor: pointer; }
+.confirm-btn:hover { background: #ff5722; }
+.close-btn { position: absolute; top: 10px; right: 12px; font-size: 22px; cursor: pointer; color: #888; }
+.close-btn:hover { color: #000; }

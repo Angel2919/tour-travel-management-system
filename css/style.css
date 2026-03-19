@@ -1,0 +1,1157 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;   
+  overflow-y: auto;     /* ✅ Vertical scroll enable */
+  font-family: sans-serif;
+}
+
+
+.slideshow-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.slideshow {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 1s ease;
+}
+
+.logo {
+  position: absolute;
+  top: 0px;    
+  left: 0px;
+  z-index: 20;
+}
+
+.logo img {
+  width: 15vw;
+  height: auto;
+  max-width: 110px;
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.8)); /* black shadow */
+}
+
+/*------------------------------------------------booking section---------------------------------------------------*/
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 50px 20px 0;
+  margin-bottom: 20px;
+  background: transparent;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+/* List container */
+.navbar li {
+  position: relative;
+}
+
+/* Glass buttons */
+.glass-btn {
+  background: rgba(255, 255, 255, 0.15);
+  color: #000;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.glass-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Dropdown Menu */
+.dropdown-select {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 10px;
+  min-width: 180px;
+  padding: 8px 0;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Dropdown items */
+.dropdown-select li {
+  padding: 10px 20px;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.dropdown-select li:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+/* Smooth fade-in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/*-----------------------------------------------end booking section--------------------------------------------------*/
+
+.hero {
+  height: 150vh;
+  display: flex;
+  align-items: flex start;
+  justify-content: flex start;
+  padding: 90px 50px;
+  color: white;
+  z-index: 5;
+}
+
+.hero-content {
+  background-color: rgba(0, 0, 0, 0.5);  /* transparent black */
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  width: 620px;          
+  height: 350px;         
+  overflow: hidden;      
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hero-title {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #f1a501;
+}
+
+.hero-title span {
+  border-bottom: 3px solid rgb(229, 240, 227);
+  padding-bottom: 5px;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #ffffffcc;
+}
+
+.hero-description {
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  color: #eeeeee;
+  overflow-wrap: break-word;
+}
+
+
+.hero-quote {
+  font-size: 18px;
+  font-style: italic;
+  color: #ffffff;
+  border-left: 4px solid #f1a501;
+  padding-left: 15px;
+}
+
+
+ /* Ultra Glass Login Box */
+
+body {
+  position: relative;
+  min-height: 100vh; 
+  margin: 0;
+  padding: 0;
+}
+
+.login-box {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+
+  max-width: 800px;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 25px rgba(0,0,0,0.2);
+  color: white;
+  z-index: 1;
+}
+
+
+.login-box h2 {
+  margin-bottom: 15px;
+  font-size: 22px;
+  text-align: center;
+  color: #fff;
+}
+
+.input-field {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-field input {
+  width: 100%;
+  height: 40px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #eee;
+  outline: none;
+  font-size: 16px;
+  color: #fff;
+}
+
+.input-field label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: #eee;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.input-field input:focus ~ label,
+.input-field input:valid ~ label {
+  font-size: 0.8rem;
+  top: 10px;
+  transform: translateY(-120%);
+  color: #fff;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+  color: #000;
+}
+
+.login-box button:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.login-box p {
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: 10px;
+  color: #fff;
+}
+
+.login-box a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.login-box a:hover {
+  text-decoration: underline;
+}
+
+.slideshow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  z-index: -100;
+}
+
+/* ------------------------------------------------------------2nd page-------------------------------------------------*/
+/*--------Outer Main Tour(search box)---------------------- */
+.main-tour-section {
+  max-width: 90%;
+  margin: 60px ;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 35px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.35);
+  z-index: 2;
+  position: relative;
+}
+
+/* Tour Section Heading */
+.section-heading {
+  font-size: 2.8rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+  text-shadow: 1.5px 1.5px 5px rgba(0, 0, 0, 0.6);
+}
+
+/* Grid Layout for Cards */
+.tour-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+  padding: 0 40px;
+}
+
+/* Individual Card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.09);
+  border-radius: 18px;
+  padding: 10px;
+  text-align: center;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s;
+}
+
+.glass-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.12);
+}
+
+/* Card Image */
+.glass-card img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 0 ;
+  padding: 2px; /* subtle gap from card border */
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* State Name */
+.glass-card h3 {
+  color: #fff;
+  font-size: 1rem;
+  margin: 6px 0;
+  text-shadow: 1.5px 1.5px 5px rgba(0, 0, 0, 0.6);
+}
+
+/* Cost Text */
+.glass-card p {
+  color: #eee;
+  font-size: 0.88rem;
+}
+
+/* 💎 SERVICES / CATEGORY SECTION */
+
+.title-style {
+  padding: 80px 60px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+}
+
+.category-title h5 {
+  font-size: 16px;
+  color: #f1a501;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.category-title h3 {
+  font-size: 36px;
+  margin-bottom: 40px;
+  color: white;
+}
+
+.services-card {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 25px;
+  width: 230px;
+  text-align: center;
+  transition: 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  margin-bottom: 15px;
+}
+
+.card h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #f1a501;
+}
+
+.card p {
+  font-size: 14px;
+  color: #ddd;
+}
+
+/* -----------------------------------------------------3rd page-------------------------------------------------------*/
+
+/* Modified Glass Card Layout for 23 State Destinations */
+
+.tour-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 22px;
+  padding: 0 40px;
+}
+.glass-card {
+  background: rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  padding: 10px;
+  text-align: center;
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+  transition: 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.glass-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.12);
+}
+
+.glass-card img {
+  width: 100%;
+  aspect-ratio: 2/3;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-bottom: 8px;
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.glass-card h3 {
+  font-size: 0.95rem;
+  color: #fff;
+  margin: 4px 0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.glass-card p {
+  font-size: 0.85rem;
+  color: #ddd;
+}
+
+/* -----------------------------------------------------4th page-------------------------------------------------------*/
+
+.filter-wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 0 20px;
+  z-index: 1000;
+  background: radial-gradient(circle, #001f2d 30%, #000000 100%);
+}
+
+/* ICON BAR */
+.icon-bar {
+  display: flex;
+  gap: 25px;
+  padding: 20px 35px;
+  border-radius: 25px;
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+  backdrop-filter: blur(14px);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ICON BOX */
+.icon-box {
+  width: 110px;
+  height: 110px;
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  transition: 0.3s;
+}
+
+.icon-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.9) contrast(1.2);
+}
+
+.icon-box span {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  right: 0;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 5px #000;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* SEARCH LABEL */
+.search-label {
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  padding: 12px 40px;
+  border-radius: 40px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  letter-spacing: 1px;
+}
+
+/* FILTER BOX */
+.filter-container {
+  width: 92%;
+  max-width: 1050px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* INPUT ROWS */
+.top-inputs,
+.bottom-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* INPUT FIELDS */
+select,
+input[type="text"],
+input[type="date"] {
+  min-width: 200px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.25);
+  outline: none;
+  transition: 0.3s;
+}
+
+.rooms-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.room-output {
+  font-size: 13px;
+  color: #fff;
+  margin-top: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 6px rgba(255,255,255,0.15);
+}
+
+input[type="text"][placeholder="Approx Budget"] {
+  width: 150px;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 10px 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999; 
+}
+
+
+/* .......................................................Bihar Page Background........................................ */
+.bihar-page {
+  background: url('../images/bihar1.jpg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+}
+
+/* Title */
+.title-section {
+  text-align: center;
+  padding: 50px 20px 20px;
+  background: rgba(0,0,0,0.4);
+}
+.title-section h1 {
+  font-size: 60px;
+  margin: 0;
+  letter-spacing: 2px;
+}
+.title-section h3 {
+  font-size: 24px;
+  font-weight: 300;
+  margin-top: 10px;
+}
+
+/* Content Layout */
+.bihar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 40px;
+  gap: 30px;
+}
+
+/* Glass Effect Boxes */
+.glass-effect {
+  background: rgba(173, 216, 230, 0.2);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  flex: 1;
+}
+
+/* Intro Text */
+.intro-box p {
+  text-align: justify;
+  line-height: 1.6;
+  font-size: 16px;
+  margin-bottom: 16px; 
+}
+
+
+/* Map Box */
+.map-box img {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+.map-note {
+  font-size: 14px;
+  margin-top: 10px;
+  color: #e0f7fa;
+  font-style: italic;
+}
+
+/*.............................................simpl experiment...............................................*/
+/* ---------- Bihar State Box ---------- */
+.state-box {
+  margin: 60px auto;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  max-width: 1300px;
+  color: #fff;
+}
+
+/* Bihar Title */
+.state-title {
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 35px;
+  color: #ffd700; /* golden */
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+}
+
+/* ---------- Cities Container ---------- */
+.cities-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+/* ---------- City Box ---------- */
+.city-box {
+  background: rgba(173, 216, 230, 0.15); /* light glass effect */
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.city-box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+}
+
+/* City Title */
+.city-title {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #ffdf91;
+  border-bottom: 2px solid rgba(255,255,255,0.3);
+  padding-bottom: 6px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+/* ---------- Places List ---------- */
+.city-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 280px; /* scroll if too long */
+  overflow-y: auto;
+}
+.city-box ul li {
+  margin: 8px 0;
+  font-size: 15px;
+  line-height: 1.4;
+  position: relative;
+  padding-left: 20px;
+}
+
+/* Custom bullet */
+.city-box ul li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #00e5ff;
+  font-size: 14px;
+}
+
+/* Scrollbar Styling (for long lists) */
+.city-box ul::-webkit-scrollbar {
+  width: 6px;
+}
+.city-box ul::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 10px;
+}
+
+/*................................................ex2....................................................*/
+
+.places-section {
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.places-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.place-card {
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.place-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.place-card:hover {
+  transform: scale(1.05);
+}
+
+.book-btn {
+  margin-top: 12px;
+  padding: 10px 15px;
+  border: none;
+  background: #ff7043;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.book-btn:hover {
+  background: #ff5722;
+}
+
+/*-----------------------------------------------ex3------------------------------------------------------/*
+/* ================= Stay & Food Section ================= */
+
+/* Intro Highlight */
+.intro-highlight {
+  max-width: 850px;
+  margin: 30px auto;
+  padding: 25px 35px;
+  font-size: 20px;
+  line-height: 1.8;
+  color: #2b2b2b;
+  text-align: center;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Mirror Title Boxes */
+.mirror-title {
+  width: fit-content;
+  margin: 40px auto 25px;
+  padding: 14px 40px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.15));
+  backdrop-filter: blur(18px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  text-align: center;
+}
+.mirror-title h2 {
+  margin: 0;
+  font-size: 28px;
+  color: #1a1a1a;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Grids */
+.hotels-slider, .foods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin: 20px 0 50px;
+}
+.hotel-card, .food-card {
+  text-align: center;
+  padding: 18px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hotel-card:hover, .food-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+.hotel-card img, .food-card img {
+  width: 100%;
+  border-radius: 14px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+/* Hotel & Food Titles */
+.hotel-card h3, .food-card h3 {
+  margin: 10px 0 6px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+}
+.hotel-card p, .food-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Book Button */
+.book-btn, .confirm-btn {
+  margin-top: 12px;
+  padding: 8px 18px;
+  font-size: 15px;
+  border-radius: 22px;
+  border: none;
+  background: linear-gradient(135deg, #ff7043, #ff5722);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+.book-btn:hover, .confirm-btn:hover {
+  background: linear-gradient(135deg, #ff5722, #e64a19);
+  transform: scale(1.07);
+}
+
+/* Booking Modal */
+.booking-modal {
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  background: rgba(255,255,255,0.98);
+  padding: 25px;
+  border-radius: 20px;
+  z-index: 1000;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.35);
+  animation: fadeIn 0.4s ease;
+}
+.booking-modal h3 {
+  text-align: center;
+  margin-bottom: 18px;
+  color: #222;
+  font-size: 22px;
+  font-weight: 700;
+}
+.booking-modal label {
+  display: block;
+  margin-top: 12px;
+  font-size: 15px;
+  color: #333;
+  font-weight: 500;
+}
+.booking-modal input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #bbb;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 900;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Fade Animation */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+/*-----------------------------------------------ex4-----------------------------------------------------/*
+
+/* Attractions Section */
+.attractions-section {
+  padding: 50px 20px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 16px;
+  margin: 40px auto;
+  color: #fff;
+  max-width: 1200px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: #ffda79;
+  font-weight: bold;
+}
+
+.section-intro {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: #d0f0f7;
+}
+
+.sub-title {
+  font-size: 24px;
+  margin: 30px 0 15px;
+  border-left: 5px solid #00bcd4;
+  padding-left: 10px;
+  color: #ffd54f;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.attraction-card {
+  background: rgba(173, 216, 230, 0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.attraction-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.attraction-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.attraction-card h4 {
+  font-size: 18px;
+  margin: 5px 0;
+  color: #ffeb3b;
+}
+
+.attraction-card p {
+  margin: 3px 0;
+  font-size: 14px;
+  color: #fff;
+}
+
+.attraction-card .comment {
+  font-style: italic;
+  color: #a5d6a7;
+}
+
+.book-btn {
+  background: #00bcd4;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  margin-top: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+.book-btn:hover {
+  background: #0097a7;
+}
+
+/* Booking Popup */
+.booking-popup {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.booking-box {
+  background: #fff;
+  color: #333;
+  padding: 20px;
+  border-radius: 12px;
+  width: 320px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  text-align: left;
+  position: relative;
+}
+
+.booking-box h3 {
+  margin-bottom: 15px;
+  text-align: center;
+  color: #00bcd4;
+}
+
+.booking-box label {
+  display: block;
+  margin: 8px 0 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.booking-box input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.confirm-btn {
+  background: #00bcd4;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.confirm-btn:hover {
+  background: #0097a7;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px; right: 12px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #888;
+}
+.close-btn:hover {
+  color: #000;
+}

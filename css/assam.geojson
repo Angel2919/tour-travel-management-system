@@ -1,0 +1,24 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Assam" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [89.5, 28.2],
+          [96.0, 28.2],
+          [96.0, 26.0],
+          [95.0, 25.0],
+          [93.5, 25.0],
+          [92.5, 24.0],
+          [91.0, 24.0],
+          [90.5, 25.0],
+          [89.9, 26.5],
+          [89.5, 28.2]
+        ]]
+      }
+    }
+  ]
+}

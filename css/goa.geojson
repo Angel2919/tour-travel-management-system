@@ -1,0 +1,19 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Goa" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [73.60, 15.95],
+          [74.45, 15.95],
+          [74.45, 14.80],
+          [73.60, 14.80],
+          [73.60, 15.95]
+        ]]
+      }
+    }
+  ]
+}

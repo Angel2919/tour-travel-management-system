@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assam Tourism</title>
+
+  <!-- Assam uses its own CSS file (assam.css) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/Assam.css') }}">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body class="assam-page">
+
+  <!-- Title Section -->
+  <header class="title-section">
+    <h1>Assam</h1>
+    <h3>Land of the Brahmaputra — Tea Gardens, Wildlife & Rich Culture</h3>
+  </header>
+
+  <!-- Main Content -->
+  <section class="bihar-content">
+    <!-- Left Side: Intro -->
+    <div class="intro-box glass-effect">
+      <h2>Discover Assam</h2>
+
+      <p>
+        Assam, in India’s northeast, is a vibrant land of the Brahmaputra river, rolling tea gardens,
+        ancient temples and unique tribal & Ahom heritage. From the world-famous Kaziranga National Park
+        (home of the one-horned rhinoceros) to the river island Majuli and the sacred Kamakhya Temple,
+        Assam offers varied experiences — wildlife safaris, cultural festivals, serene river life and
+        unique cuisine.
+      </p>
+
+      <p>
+        The state’s history blends Ahom rule, Vaisnavite culture and tribal traditions. Assam’s festivals
+        — especially Bihu — are full of music, dance and color. The tea gardens of Jorhat and Tinsukia
+        produce the famous Assam tea that’s celebrated worldwide.
+      </p>
+
+      <p>
+        Nature lovers will enjoy wetlands and birding sites, river cruises on the Brahmaputra, and trips
+        to the hills of Haflong. Assam is a peaceful but lively destination — ideal for culture seekers,
+        photographers, and eco-tourists.
+      </p>
+
+      <p>
+        Plan visits between October and March for comfortable weather, abundant festivals and easy wildlife sightings.
+      </p>
+    </div>
+
+    <!-- Right Side: Map -->
+    <div class="map-box glass-effect">
+      <h3>Map of Assam</h3>
+      <div id="map" style="height:420px; width:100%; border-radius:7px;"></div>
+      <p class="map-note">Markers show major tourist spots. State boundary is outlined via GeoJSON.</p>
+    </div>
+  </section>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Map init (center roughly over Assam)
+    const map = L.map("map", { zoomControl: true, scrollWheelZoom: true }).setView([26.2, 92.9], 7);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(map);
+
+    // Load Assam boundary GeoJSON
+    fetch("{{ url_for('static', filename='geojson/assam.geojson') }}")
+      .then(r => r.json())
+      .then(geojson => {
+        const boundary = L.geoJSON(geojson, {
+          style: { color: "#000000", weight: 4, opacity: 1, fill: false }
+        }).addTo(map);
+        map.fitBounds(boundary.getBounds(), { padding: [20, 20] });
+      })
+      .catch(e => console.error("Boundary load error:", e));
+
+    // Markers
+    L.marker([26.1445, 91.7362]).addTo(map).bindPopup("🏛️ Kaziranga National Park (Golaghat/Jorhat area)");
+    L.marker([26.9561, 94.9769]).addTo(map).bindPopup("🏝️ Majuli Island - River island culture & satras");
+    L.marker([26.1670, 91.7336]).addTo(map).bindPopup("☸️ Sivasagar - Ahom monuments and tanks");
+    L.marker([26.1739, 91.7134]).addTo(map).bindPopup("🛕 Kamakhya Temple (Guwahati - Nilachal Hill)");
+    L.marker([25.6716, 94.2399]).addTo(map).bindPopup("🌿 Haflong - Hills & scenic views");
+  </script>
+
+  <!------------------------------------------------state box--------------------------------------------------->
+  <section>
+    <div class="state-box theme-bihar">
+      <h2 class="state-title">Top Tourist Places in Assam</h2>
+
+      <div class="cities-container">
+
+        <!-- Guwahati -->
+        <div class="city-box">
+          <h3 class="city-title">Guwahati</h3>
+          <ul>
+            <li>Kamakhya Temple (Nilachal Hill)</li>
+            <li>Umananda Temple (Peacock Island)</li>
+            <li>Assam State Museum</li>
+            <li>Fancy Bazaar & Brahmaputra riverfront</li>
+          </ul>
+        </div>
+
+        <!-- Kaziranga / Jorhat -->
+        <div class="city-box">
+          <h3 class="city-title">Kaziranga & Jorhat</h3>
+          <ul>
+            <li>Kaziranga National Park (UNESCO, one-horned rhino)</li>
+            <li>Tea gardens around Jorhat & Dibrugarh</li>
+            <li>Majuli access points & cultural satras</li>
+          </ul>
+        </div>
+
+        <!-- Majuli -->
+        <div class="city-box">
+          <h3 class="city-title">Majuli</h3>
+          <ul>
+            <li>River island satras (Vaishnavite monasteries)</li>
+            <li>Traditional mask-making & pottery</li>
+            <li>Birdwatching & river life</li>
+          </ul>
+        </div>
+
+        <!-- Sivasagar -->
+        <div class="city-box">
+          <h3 class="city-title">Sivasagar</h3>
+          <ul>
+            <li>Rang Ghar (Ahom amphitheatre)</li>
+            <li>Talatal Ghar</li>
+            <li>Ahom-era temples and tanks</li>
+          </ul>
+        </div>
+
+        <!-- Haflong / North Cachar Hills -->
+        <div class="city-box">
+          <h3 class="city-title">Haflong & Hills</h3>
+          <ul>
+            <li>Haflong Hill Station</li>
+            <li>Scenic viewpoints & local tribal markets</li>
+          </ul>
+        </div>
+
+        <!-- Other Attractions -->
+        <div class="city-box">
+          <h3 class="city-title">Other Famous Attractions</h3>
+          <ul>
+            <li>Manas National Park (Bodo & UNESCO)</li>
+            <li>Tea Museum (Jorhat)</li>
+            <li>Dhola-Sadiya Bridge viewpoint</li>
+            <li>Ali-Aye-Ligang (Mising festival) experiences</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-------------------------------places section---------------------------------------->
+  <section class="places-section">
+    <h2 class="section-title">Popular Tourist Spots in Assam</h2>
+    <div class="places-grid">
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/kaziranga.jpg') }}" alt="Kaziranga">
+        <h3>Kaziranga National Park</h3>
+        <p>Home to the Indian one-horned rhinoceros and rich wildlife.</p>
+        <button class="book-btn" onclick="openBookingForm('Kaziranga National Park')">Book Now</button>
+      </div>
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/majuli.jpg') }}" alt="Majuli">
+        <h3>Majuli Island</h3>
+        <p>World’s largest river island — culture, satras & crafts.</p>
+        <button class="book-btn" onclick="openBookingForm('Majuli Island')">Book Now</button>
+      </div>
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/kamakhya.jpg') }}" alt="Kamakhya">
+        <h3>Kamakhya Temple</h3>
+        <p>Important Shaktipeeth & major pilgrimage site in Guwahati.</p>
+        <button class="book-btn" onclick="openBookingForm('Kamakhya Temple')">Book Now</button>
+      </div>
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/tea_garden.jpg') }}" alt="Tea Gardens">
+        <h3>Tea Gardens (Jorhat/Dibrugarh)</h3>
+        <p>Experience the aroma and history of Assam Tea.</p>
+        <button class="book-btn" onclick="openBookingForm('Tea Gardens')">Book Now</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-------------------------------- Stay & Food Section --------------------------------->
+  <section class="stay-food-section">
+    <div class="intro-highlight glass-effect">
+      <p>
+        Assam offers comfortable city hotels and eco-lodges near national parks and riverfronts.
+        Enjoy warm hospitality, tea tastings, cozy homestays and guided wildlife safaris.
+      </p>
+    </div>
+
+    <div class="mirror-title glass-effect">
+      <h2>🏨 Safe & Comfortable Stays</h2>
+    </div>
+
+    <div class="hotels-slider">
+      <div class="hotel-card glass-effect">
+        <div class="hotel-images">
+          <img src="{{ url_for('static', filename='images/guwahati_hotel1.jpg') }}" alt="Guwahati Hotel">
+          <img src="{{ url_for('static', filename='images/guwahati_room.jpg') }}" alt="Room">
+        </div>
+        <h3>Guwahati Grand</h3>
+        <p>⭐️⭐️⭐️⭐️ | Approx Budget: ₹3200/night</p>
+        <p class="comment">Central, river views and easy transport links.</p>
+        <button class="book-btn">Book Now</button>
+      </div>
+
+      <div class="hotel-card glass-effect">
+        <div class="hotel-images">
+          <img src="{{ url_for('static', filename='images/jorhat_resort.jpg') }}" alt="Jorhat Resort">
+          <img src="{{ url_for('static', filename='images/jorhat_room.jpg') }}" alt="Room">
+        </div>
+        <h3>Tea Valley Resort</h3>
+        <p>⭐️⭐️⭐️ | Approx Budget: ₹2500/night</p>
+        <p class="comment">Stay inside tea gardens for a quiet experience.</p>
+        <button class="book-btn">Book Now</button>
+      </div>
+
+      <div class="hotel-card glass-effect">
+        <div class="hotel-images">
+          <img src="{{ url_for('static', filename='images/kaziranga_lodge.jpg') }}" alt="Kaziranga Lodge">
+          <img src="{{ url_for('static', filename='images/kaziranga_room.jpg') }}" alt="Room">
+        </div>
+        <h3>Jungle Lodge, Kaziranga</h3>
+        <p>⭐️⭐️⭐️⭐️ | Approx Budget: ₹3500/night</p>
+        <p class="comment">Great for safaris and wildlife sightings.</p>
+        <button class="book-btn">Book Now</button>
+      </div>
+    </div>
+
+    <div class="mirror-title glass-effect">
+      <h2>🍛 Must-Try Assamese Delicacies</h2>
+    </div>
+
+    <div class="foods-grid">
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/khaar.jpg') }}" alt="Khaar">
+        <h3>Khaar</h3>
+        <p>Traditional alkaline-based dish often made with raw papaya.</p>
+      </div>
+
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/masor_tenga.jpg') }}" alt="Masor Tenga">
+        <h3>Masor Tenga</h3>
+        <p>Tangy fish curry popular across Assam.</p>
+      </div>
+
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/pitha.jpg') }}" alt="Pitha">
+        <h3>Pitha</h3>
+        <p>Rice cakes & sweets — festival specialty.</p>
+      </div>
+
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/assam_tea_cup.jpg') }}" alt="Assam Tea">
+        <h3>Assam Tea</h3>
+        <p>Strong, bold and world-famous brew.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay"></div>
+  <div class="booking-modal glass-effect">
+    <h3>Book Your Stay</h3>
+    <label>Guests:</label>
+    <input type="number" min="1" value="1">
+    <label>Rooms:</label>
+    <input type="number" min="1" value="1">
+    <button class="confirm-btn">Confirm ✅</button>
+  </div>
+
+  <!-- JS: booking popup + hotel slider -->
+  <script>
+    // Booking Popup
+    const overlay = document.querySelector(".modal-overlay");
+    const modal = document.querySelector(".booking-modal");
+    const bookBtns = document.querySelectorAll(".book-btn");
+    const confirmBtn = document.querySelector(".confirm-btn");
+
+    bookBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        overlay.style.display = "block";
+        modal.style.display = "block";
+      });
+    });
+    overlay.addEventListener("click", () => {
+      overlay.style.display = "none";
+      modal.style.display = "none";
+    });
+    confirmBtn.addEventListener("click", () => {
+      alert("✅ Booking confirmed!");
+      overlay.style.display = "none";
+      modal.style.display = "none";
+    });
+
+    // Hotels Image Slider
+    document.querySelectorAll('.hotel-card').forEach(card => {
+      const images = card.querySelectorAll('img');
+      let index = 0;
+      images.forEach((img, i) => img.style.display = (i === 0) ? 'block' : 'none');
+      setInterval(() => {
+        images.forEach(img => img.style.display = 'none');
+        images[index].style.display = 'block';
+        index = (index + 1) % images.length;
+      }, 2500);
+    });
+
+    // small helper used by place card buttons
+    function openBookingForm(placeName) {
+      overlay.style.display = "block";
+      modal.style.display = "block";
+    }
+  </script>
+
+  <!------------------------------------------------ex4-------------------------------------------------->
+  <section class="attractions-section">
+    <h2 class="section-title">✨ Top Attractions of Assam</h2>
+    <p class="section-intro">
+      Assam blends wildlife, river culture, tea heritage and ancient monuments — ideal for culture & nature lovers.
+    </p>
+
+    <!-- International Level -->
+    <h3 class="sub-title">🌍 International Level Attractions</h3>
+    <div class="cards-grid">
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/kaziranga.jpg') }}" alt="Kaziranga">
+        <h4>Kaziranga – National Park</h4>
+        <p><b>Budget:</b> ₹2000–₹4500</p>
+        <p><b>Best Time:</b> Nov–Apr</p>
+        <p class="comment">UNESCO site; best for rhinoceros & elephant safaris.</p>
+        <button class="book-btn" onclick="openBooking('Kaziranga – National Park')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/majuli.jpg') }}" alt="Majuli">
+        <h4>Majuli – River Island</h4>
+        <p><b>Budget:</b> ₹1200–₹3000</p>
+        <p><b>Best Time:</b> Oct–Feb</p>
+        <p class="comment">Cultural heartland with satras and crafts.</p>
+        <button class="book-btn" onclick="openBooking('Majuli – River Island')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/kamakhya.jpg') }}" alt="Kamakhya">
+        <h4>Kamakhya Temple – Guwahati</h4>
+        <p><b>Budget:</b> ₹800–₹2000</p>
+        <p><b>Best Time:</b> Oct–Mar</p>
+        <p class="comment">Major Shaktipeeth with large pilgrim footfall.</p>
+        <button class="book-btn" onclick="openBooking('Kamakhya Temple')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/manas.jpg') }}" alt="Manas">
+        <h4>Manas – National Park</h4>
+        <p><b>Budget:</b> ₹2500–₹6000</p>
+        <p><b>Best Time:</b> Nov–Apr</p>
+        <p class="comment">UNESCO site shared with Bhutan, rich biodiversity.</p>
+        <button class="book-btn" onclick="openBooking('Manas – National Park')">Book Now</button>
+      </div>
+    </div>
+
+    <!-- National Level -->
+    <h3 class="sub-title">🇮🇳 National Level Attractions</h3>
+    <div class="cards-grid">
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/sivasagar.jpg') }}" alt="Sivasagar">
+        <h4>Sivasagar – Ahom Monuments</h4>
+        <p><b>Budget:</b> ₹700–₹1800</p>
+        <p><b>Best Time:</b> Oct–Feb</p>
+        <p class="comment">Rang Ghar, Talatal Ghar and historic tanks.</p>
+        <button class="book-btn" onclick="openBooking('Sivasagar – Ahom Monuments')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/tea_museum.jpg') }}" alt="Tea Museum">
+        <h4>Tea Museum – Jorhat</h4>
+        <p><b>Budget:</b> ₹500–₹1200</p>
+        <p><b>Best Time:</b> Oct–Mar</p>
+        <p class="comment">Learn about tea production & enjoy tastings.</p>
+        <button class="book-btn" onclick="openBooking('Tea Museum – Jorhat')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/haflong.jpg') }}" alt="Haflong">
+        <h4>Haflong – Hill Station</h4>
+        <p><b>Budget:</b> ₹1200–₹3000</p>
+        <p><b>Best Time:</b> Oct–Feb</p>
+        <p class="comment">Pocket-sized hill station with scenic views.</p>
+        <button class="book-btn" onclick="openBooking('Haflong – Hill Station')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/dhola_sadiya.jpg') }}" alt="Dhola Sadiya Bridge">
+        <h4>Dhola-Sadiya Bridge Viewpoints</h4>
+        <p><b>Budget:</b> ₹300–₹900</p>
+        <p><b>Best Time:</b> Oct–Mar</p>
+        <p class="comment">Longest bridge in India — good for photos & river views.</p>
+        <button class="book-btn" onclick="openBooking('Dhola-Sadiya View')">Book Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Popup Form -->
+  <div class="booking-popup" id="bookingPopup">
+    <div class="booking-box">
+      <span class="close-btn" onclick="closeBooking()">&times;</span>
+      <h3 id="bookingTitle">Book Now</h3>
+      <form onsubmit="event.preventDefault(); alert('✅ Booking submitted!'); closeBooking();">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="people">No. of People:</label>
+        <input type="number" id="people" min="1" required>
+
+        <label for="days">No. of Days:</label>
+        <input type="number" id="days" min="1" required>
+
+        <button type="submit" class="confirm-btn">Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openBooking(placeName) {
+      document.getElementById("bookingTitle").innerText = "Book: " + placeName;
+      document.getElementById("bookingPopup").style.display = "flex";
+    }
+
+    function closeBooking() {
+      document.getElementById("bookingPopup").style.display = "none";
+    }
+  </script>
+
+  <footer style="margin:40px 0; text-align:center; color:#fff;">
+    <p>© 2025 Assam Tourism | Designed by Shadow Queen</p>
+  </footer>
+
+</body>
+</html>

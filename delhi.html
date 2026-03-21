@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Delhi Tourism</title>
+
+  <!-- Delhi uses its own CSS file -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/delhi.css') }}">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body class="delhi-page">
+
+  <!-- Title Section -->
+  <header class="title-section">
+    <h1>Delhi</h1>
+    <h3>India’s Capital — History, Monuments & Urban Culture</h3>
+  </header>
+
+  <!-- Main Content -->
+  <section class="bihar-content">
+    <!-- Intro -->
+    <div class="intro-box glass-effect">
+      <h2>Discover Delhi</h2>
+
+      <p>
+        Delhi, the national capital territory, is a blend of ancient monuments, colonial-era architecture,
+        bustling bazaars, and modern urban life. From the Mughal grandeur of the Red Fort and Humayun’s Tomb
+        to the colonial Rajpath and India Gate, Delhi tells India’s history in stone and streets.
+      </p>
+
+      <p>
+        The city also offers world-class museums, thriving arts and food scenes, and quiet heritage pockets like
+        Hauz Khas and Mehrauli. Delhi is a gateway to India’s past and present — perfect for culture seekers,
+        history buffs and food lovers.
+      </p>
+
+      <p>
+        Best time to visit: October–March. Expect busy tourist circuits around New Delhi and Old Delhi, and lesser-known
+        heritage walks in Mehrauli and Shahdara.
+      </p>
+    </div>
+
+    <!-- Map -->
+    <div class="map-box glass-effect">
+      <h3>Map of Delhi</h3>
+      <div id="map" style="height:420px; width:100%; border-radius:7px;"></div>
+      <p class="map-note">Markers show major attractions. Boundary loaded from GeoJSON.</p>
+    </div>
+  </section>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map("map", { zoomControl: true, scrollWheelZoom: true }).setView([28.644800, 77.216721], 11);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(map);
+
+    // Load Delhi boundary
+    fetch("{{ url_for('static', filename='geojson/delhi.geojson') }}")
+      .then(r => r.json())
+      .then(geojson => {
+        const boundary = L.geoJSON(geojson, {
+          style: { color: "#8B0000", weight: 3, opacity: 1, fill: false }
+        }).addTo(map);
+        map.fitBounds(boundary.getBounds(), { padding: [20,20] });
+      })
+      .catch(e => console.error("Boundary load error:", e));
+
+    // Markers for key spots
+    L.marker([28.6562,77.2410]).addTo(map).bindPopup("🕌 Red Fort (Lal Qila)");
+    L.marker([28.6129,77.2295]).addTo(map).bindPopup("🕊 India Gate & Rajpath");
+    L.marker([28.5245,77.1855]).addTo(map).bindPopup("🕍 Qutub Minar");
+    L.marker([28.5535,77.2588]).addTo(map).bindPopup("🪷 Lotus Temple (Baha'i)");
+    L.marker([28.6129,77.2773]).addTo(map).bindPopup("🏛 Humayun's Tomb");
+    L.marker([28.5849,77.2250]).addTo(map).bindPopup("🛕 Akshardham Temple");
+  </script>
+
+  <!------------------------------------------------state box--------------------------------------------------->
+  <section>
+    <div class="state-box theme-bihar">
+      <h2 class="state-title">Top Places to Visit in Delhi</h2>
+
+      <div class="cities-container">
+
+        <!-- Old Delhi -->
+        <div class="city-box">
+          <h3 class="city-title">Old Delhi</h3>
+          <ul>
+            <li>Red Fort (Lal Qila)</li>
+            <li>Jama Masjid</li>
+            <li>Chandni Chowk & Paranthe Wali Gali</li>
+            <li>Spice & Jewelry Bazaars</li>
+          </ul>
+        </div>
+
+        <!-- New Delhi -->
+        <div class="city-box">
+          <h3 class="city-title">New Delhi</h3>
+          <ul>
+            <li>India Gate & Rajpath</li>
+            <li>Rashtrapati Bhavan (View)</li>
+            <li>National Museum & Crafts Museum</li>
+            <li>Connaught Place (shopping & dining)</li>
+          </ul>
+        </div>
+
+        <!-- Mehrauli / Qutub -->
+        <div class="city-box">
+          <h3 class="city-title">Mehrauli & Qutub</h3>
+          <ul>
+            <li>Qutub Minar & Qutub complex</li>
+            <li>Mehrauli Archaeological Park</li>
+            <li>Jamali Kamali Mosque & Tomb</li>
+          </ul>
+        </div>
+
+        <!-- South Delhi -->
+        <div class="city-box">
+          <h3 class="city-title">South Delhi</h3>
+          <ul>
+            <li>Hauz Khas Village & Deer Park</li>
+            <li>Lotus Temple (Baha'i)</li>
+            <li>Garden of Five Senses</li>
+          </ul>
+        </div>
+
+        <!-- Cultural Spots -->
+        <div class="city-box">
+          <h3 class="city-title">Cultural & Hidden Gems</h3>
+          <ul>
+            <li>Humayun's Tomb</li>
+            <li>Dilli Haat (crafts & food)</li>
+            <li>National Crafts Museum</li>
+            <li>Ghalib's Haveli (heritage walk)</li>
+          </ul>
+        </div>
+
+        <!-- Other attractions -->
+        <div class="city-box">
+          <h3 class="city-title">Other Famous Spots</h3>
+          <ul>
+            <li>Akshardham Temple</li>
+            <li>Jantar Mantar (astronomical observatory)</li>
+            <li>National Rail Museum</li>
+            <li>Lot of guided heritage walks</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-------------------------------places section---------------------------------------->
+  <section class="places-section">
+    <h2 class="section-title">Must-See Spots in Delhi</h2>
+    <div class="places-grid">
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/red_fort.jpg') }}" alt="Red Fort">
+        <h3>Red Fort</h3>
+        <p>Mughal-era fort and UNESCO monument.</p>
+        <button class="book-btn" onclick="openBookingForm('Red Fort')">Book Now</button>
+      </div>
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/india_gate.jpg') }}" alt="India Gate">
+        <h3>India Gate</h3>
+        <p>Iconic war memorial and evening promenade.</p>
+        <button class="book-btn" onclick="openBookingForm('India Gate')">Book Now</button>
+      </div>
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/qutub_minar.jpg') }}" alt="Qutub Minar">
+        <h3>Qutub Minar</h3>
+        <p>Historic minaret with archaeological complex.</p>
+        <button class="book-btn" onclick="openBookingForm('Qutub Minar')">Book Now</button>
+      </div>
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/lotus_temple.jpg') }}" alt="Lotus Temple">
+        <h3>Lotus Temple</h3>
+        <p>Architectural Baha'i house of worship with serene gardens.</p>
+        <button class="book-btn" onclick="openBookingForm('Lotus Temple')">Book Now</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-------------------------------- Stay & Food Section --------------------------------->
+  <section class="stay-food-section">
+    <div class="intro-highlight glass-effect">
+      <p>
+        Delhi has options from luxury hotels near central New Delhi to budget stays near Old Delhi markets.
+        Street food here is legendary — chaat, kebabs, parathas — explore safely with trusted guides.
+      </p>
+    </div>
+
+    <div class="mirror-title glass-effect">
+      <h2>🏨 Recommended Stays</h2>
+    </div>
+
+    <div class="hotels-slider">
+      <div class="hotel-card glass-effect">
+        <div class="hotel-images">
+          <img src="{{ url_for('static', filename='images/connaught_hotel.jpg') }}" alt="Connaught Place Hotel">
+          <img src="{{ url_for('static', filename='images/connaught_room.jpg') }}" alt="Room">
+        </div>
+        <h3>Central Grand (Connaught Place)</h3>
+        <p>⭐️⭐️⭐️⭐️ | Approx Budget: ₹6000/night</p>
+        <p class="comment">Perfect for shopping & quick city access.</p>
+        <button class="book-btn">Book Now</button>
+      </div>
+
+      <div class="hotel-card glass-effect">
+        <div class="hotel-images">
+          <img src="{{ url_for('static', filename='images/old_delhi_hotel.jpg') }}" alt="Old Delhi Hotel">
+          <img src="{{ url_for('static', filename='images/old_delhi_room.jpg') }}" alt="Room">
+        </div>
+        <h3>Heritage Inn, Old Delhi</h3>
+        <p>⭐️⭐️⭐️ | Approx Budget: ₹2200/night</p>
+        <p class="comment">Great location for exploring markets & food lanes.</p>
+        <button class="book-btn">Book Now</button>
+      </div>
+
+      <div class="hotel-card glass-effect">
+        <div class="hotel-images">
+          <img src="{{ url_for('static', filename='images/hauz_khas_hotel.jpg') }}" alt="Hauz Khas Hotel">
+          <img src="{{ url_for('static', filename='images/hauz_khas_room.jpg') }}" alt="Room">
+        </div>
+        <h3>Hauz Khas Boutique Stay</h3>
+        <p>⭐️⭐️⭐️⭐️ | Approx Budget: ₹4200/night</p>
+        <p class="comment">Stylish stay near culture hubs & nightlife.</p>
+        <button class="book-btn">Book Now</button>
+      </div>
+    </div>
+
+    <div class="mirror-title glass-effect">
+      <h2>🍛 Must-Try Delhi Foods</h2>
+    </div>
+
+    <div class="foods-grid">
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/chaat.jpg') }}" alt="Chaat">
+        <h3>Chaat & Street Snacks</h3>
+        <p>Try at carefully selected stalls for best taste & safety.</p>
+      </div>
+
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/paratha.jpg') }}" alt="Paratha">
+        <h3>Paranthe Wali Gali Parathas</h3>
+        <p>Legendary stuffed parathas in Old Delhi.</p>
+      </div>
+
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/kebabs.jpg') }}" alt="Kebabs">
+        <h3>Mughlai Kebabs</h3>
+        <p>Rich, spicy and perfect for meat lovers.</p>
+      </div>
+
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/dilli_ki_chaat.jpg') }}" alt="More Chaat">
+        <h3>Street Chaats & Sweets</h3>
+        <p>From jalebi to rabri — dessert delights.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay"></div>
+  <div class="booking-modal glass-effect">
+    <h3>Book Your Stay</h3>
+    <label>Guests:</label>
+    <input type="number" min="1" value="1">
+    <label>Rooms:</label>
+    <input type="number" min="1" value="1">
+    <button class="confirm-btn">Confirm ✅</button>
+  </div>
+
+  <!-- JS: booking popup + slider -->
+  <script>
+    // Booking Popup
+    const overlay = document.querySelector(".modal-overlay");
+    const modal = document.querySelector(".booking-modal");
+    const bookBtns = document.querySelectorAll(".book-btn");
+    const confirmBtn = document.querySelector(".confirm-btn");
+
+    bookBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        overlay.style.display = "block";
+        modal.style.display = "block";
+      });
+    });
+    overlay.addEventListener("click", () => {
+      overlay.style.display = "none";
+      modal.style.display = "none";
+    });
+    confirmBtn.addEventListener("click", () => {
+      alert("✅ Booking confirmed!");
+      overlay.style.display = "none";
+      modal.style.display = "none";
+    });
+
+    // Hotels Image Slider
+    document.querySelectorAll('.hotel-card').forEach(card => {
+      const images = card.querySelectorAll('img');
+      let index = 0;
+      images.forEach((img, i) => img.style.display = (i === 0) ? 'block' : 'none');
+      setInterval(() => {
+        images.forEach(img => img.style.display = 'none');
+        images[index].style.display = 'block';
+        index = (index + 1) % images.length;
+      }, 2500);
+    });
+
+    function openBookingForm(placeName) {
+      overlay.style.display = "block";
+      modal.style.display = "block";
+    }
+  </script>
+
+  <!------------------------------------------------ex4-------------------------------------------------->
+  <section class="attractions-section">
+    <h2 class="section-title">✨ Top Attractions of Delhi</h2>
+    <p class="section-intro">
+      From UNESCO monuments and royal tombs to bustling bazaars and modern museums, Delhi is a compact history book waiting to be explored.
+    </p>
+
+    <h3 class="sub-title">🌍 International Level Attractions</h3>
+    <div class="cards-grid">
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/humayun.jpg') }}" alt="Humayun's Tomb">
+        <h4>Humayun's Tomb</h4>
+        <p><b>Budget:</b> ₹200–₹600</p>
+        <p><b>Best Time:</b> Oct–Mar</p>
+        <p class="comment">Precursor to Taj Mahal architecture, peaceful gardens.</p>
+        <button class="book-btn" onclick="openBooking('Humayun\'s Tomb')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/man_museum.jpg') }}" alt="National Museum">
+        <h4>National Museum & Galleries</h4>
+        <p><b>Budget:</b> ₹200–₹800</p>
+        <p><b>Best Time:</b> Year-round</p>
+        <p class="comment">Excellent collections for history & art lovers.</p>
+        <button class="book-btn" onclick="openBooking('National Museum')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/dilli_haat.jpg') }}" alt="Dilli Haat">
+        <h4>Dilli Haat – Crafts & Food</h4>
+        <p><b>Budget:</b> ₹300–₹1000</p>
+        <p><b>Best Time:</b> Year-round</p>
+        <p class="comment">Handicrafts, regional food stalls and cultural shows.</p>
+        <button class="book-btn" onclick="openBooking('Dilli Haat')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/akshardham.jpg') }}" alt="Akshardham">
+        <h4>Akshardham Temple</h4>
+        <p><b>Budget:</b> ₹0–₹500</p>
+        <p><b>Best Time:</b> Oct–Mar</p>
+        <p class="comment">Modern temple complex with shows & gardens.</p>
+        <button class="book-btn" onclick="openBooking('Akshardham')">Book Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Popup Form -->
+  <div class="booking-popup" id="bookingPopup">
+    <div class="booking-box">
+      <span class="close-btn" onclick="closeBooking()">&times;</span>
+      <h3 id="bookingTitle">Book Now</h3>
+      <form onsubmit="event.preventDefault(); alert('✅ Booking submitted!'); closeBooking();">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="people">No. of People:</label>
+        <input type="number" id="people" min="1" required>
+
+        <label for="days">No. of Days:</label>
+        <input type="number" id="days" min="1" required>
+
+        <button type="submit" class="confirm-btn">Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openBooking(placeName) {
+      document.getElementById("bookingTitle").innerText = "Book: " + placeName;
+      document.getElementById("bookingPopup").style.display = "flex";
+    }
+    function closeBooking() {
+      document.getElementById("bookingPopup").style.display = "none";
+    }
+  </script>
+
+  <footer style="margin:40px 0; text-align:center; color:#fff;">
+    <p>© 2025 Delhi Tourism | Designed by Shadow Queen</p>
+  </footer>
+
+</body>
+</html>

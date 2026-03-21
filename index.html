@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Best Indian tour and travel booking site for destinations across India.">
+  <meta name="author" content="anonymous">
+  <meta name="keywords" content="India, Travel, Tour, Booking, Holiday">
+  <title>Tour & Travel - My Flask App</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">   
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>                                   
+    <div class="slideshow-bg"></div>
+    <header>
+  <nav class="navbar">
+    <ul>
+      <li class="dropdown-click">
+        <button class="glass-btn" onclick="toggleDropdown(this)">Services</button>
+        <ul class="dropdown-select">
+          <li>Flight Booking</li>
+          <li>Hotel Reservation</li>
+          <li>Tour Guide</li>
+          <li>Cab Service</li>
+          <li>Travel Insurance</li>
+          <li>Custom Packages</li>
+        </ul>
+      </li>
+
+      <li class="dropdown-click">
+        <button class="glass-btn" onclick="toggleDropdown(this)">Destination</button>
+        <ul class="dropdown-select">
+          <li>Kedarnath</li>
+          <li>Goa</li>
+          <li>Manali</li>
+          <li>Rajasthan</li>
+          <li>Andaman</li>
+          <li>Kerala</li>
+        </ul>
+      </li>
+
+      <li class="dropdown-click">
+        <button class="glass-btn" onclick="toggleDropdown(this)">Booking</button>
+        <ul class="dropdown-select">
+          <li>Flight</li>
+          <li>Hotel</li>
+          <li>Bus</li>
+          <li>Train</li>
+          <li>Cab</li>
+          <li>Tour Package</li>
+        </ul>
+      </li>
+
+      <li class="dropdown-click">
+        <button class="glass-btn" onclick="toggleDropdown(this)">Testimonial</button>
+        <ul class="dropdown-select">
+          <li>Pooja (Patna)</li>
+          <li>Raj (Delhi)</li>
+          <li>Neha (Mumbai)</li>
+          <li>Amit (Bangalore)</li>
+          <li>Anjali (Kolkata)</li>
+          <li>Guest Reviews</li>
+        </ul>
+      </li>
+
+      <li class="dropdown-click">
+        <button class="glass-btn" onclick="toggleDropdown(this)">Contact</button>
+        <ul class="dropdown-select">
+          <li>Email Us</li>
+          <li>Call Support</li>
+          <li>Live Chat</li>
+          <li>WhatsApp</li>
+          <li>Social Media</li>
+          <li>Head Office</li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  function toggleDropdown(button) {
+    // Close other open dropdowns
+    document.querySelectorAll('.dropdown-select').forEach(drop => {
+      if (drop !== button.nextElementSibling) drop.style.display = 'none';
+    });
+
+    const dropdown = button.nextElementSibling;
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+  }
+
+  // Close dropdown if click outside
+  document.addEventListener('click', function (e) {
+    if (!e.target.matches('.glass-btn')) {
+      document.querySelectorAll('.dropdown-select').forEach(drop => drop.style.display = 'none');
+    }
+  });
+</script>
+  
+<!------------------------------------- End show select data---------------------------------------->
+
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title"><span>Incredible India Trails</span></h1>
+        <h2 class="hero-subtitle">Travel | Experience | Excel</h2>
+    
+        <p class="hero-description">
+          Welcome to your one-stop travel companion for exploring India’s most breathtaking,<br>
+          soulful, and hidden gems curated for explorers who seek more than just a vacation—<br>
+          for those who crave stories, serenity, and soulful connections.
+        </p>
+    
+        <blockquote class="hero-quote">
+          “India isn't just a place you visit, it's a feeling you take home.”
+        </blockquote>
+      </div>
+    </section>
+    
+    <div class="slideshow-container">
+  <div id="slideshow" class="slideshow"></div>
+</div>
+
+<div class="logo">
+  <img src="{{ url_for('static', filename='images/logo.png') }}" alt="site-logo">
+  
+</div>
+
+<!----------------------------------Ultra Glass Login Box---------------------------------------->
+<div class="login-box">
+  <form>
+    <h2>Login</h2>
+    <div class="input-field">
+      <input type="email" required>
+      <label>Enter email</label>
+    </div>
+    <div class="input-field">
+      <input type="password" required>
+      <label>Enter password</label>
+    </div>
+    <div class="options">
+      <label><input type="checkbox"> Save login info</label>
+      <a href="#">Forgot?</a>
+    </div>
+    <button type="submit">Log In</button>
+    <p>Don't have an account? <a href="#">Sign up</a></p>
+  </form>
+</div>
+
+<script>
+  const bgImgs = JSON.parse('{{ bg_imgs | tojson | safe }}');
+
+  let x = 0;
+  let s = document.getElementById("slideshow");
+
+  function run() {
+    s.style.backgroundImage = "url('" + bgImgs[x] + "')";
+    x = (x + 1) % bgImgs.length;
+  }
+
+  setInterval(run, 3970);
+  run();
+</script>
+
+
+<!-------------------------------------------------------2nd page---------------------------------------------------->
+<div class="filter-wrapper">
+  <!-- Floating Icon Bar (with labels inside images) -->
+
+   <input type="hidden" id="icon-box" name="travelType" />
+
+  <div class="icon-bar">
+    <div class="icon-box" data-value="flight" tabindex="0">
+      <img src="{{ url_for('static', filename='images/flight.png') }}" alt="Flights">
+     <span>Flight</span>
+    </div>
+    <div class="icon-box" data-value="train" tabindex="1">
+      <img src="{{ url_for('static', filename='images/train.png') }}" alt="Trains">
+      <span>Train</span>
+    </div>
+    <div class="icon-box" data-value="bus" tabindex="2">
+      <img src="{{ url_for('static', filename='images/bus.png') }}" alt="Buses">
+      <span>Bus</span>
+    </div>
+    <div class="icon-box" data-value="cab" tabindex="3">
+      <img src="{{ url_for('static', filename='images/cab.png') }}" alt="Cabs">
+      <span>Cabs</span>
+    </div>
+  </div>
+
+    <input type="hidden" id="selectedTravelType" name="travelType" />
+  
+    <div class="filter-container">
+      <div class="search-label">SEARCH</div>
+  
+      <!-- Top Inputs -->
+      <div class="top-inputs">
+        <select>
+          <option disabled selected>Select State</option>
+          <option>Andhra-Pradesh</option>
+          <option>Assam</option>
+          <option>bihar</option>
+          <option>Chhattisgarh</option>
+          <option>Delhi</option>
+          <option>Goa</option>
+          <option>Himachal-Pradesh</option>
+          <option>Kashmir</option>
+          <option>Kerala</option>
+          <option>Madhya-Pradesh</option>
+          <option>Maharashtra</option>
+          <option>Meghalaya</option>
+          <option>Mizoram</option>
+          <option>Punjab</option>
+          <option>Rajasthan</option>
+          <option>Sikkim</option>
+          <option>Tamil-Nadu</option>
+          <option>Telangana</option>
+          <option>Uttar-Pradesh</option>
+          <option>Tamil-Nadu</option>
+          <option>Uttarakhand</option>
+          <option>West-Bengal</option>
+        </select>
+        <select>
+          <option disabled selected>Select Tour Type</option>
+          <option>Adventure & Expedition</option>
+          <option>Cultural & Heritage</option>
+          <option>Luxury & Leisure</option>
+          <option>Wildlife & Eco-Tourism</option>
+          <option>Spiritual & Pilgrimage</option>
+        </select>
+  
+        <!-- Rooms & Guests Dropdown -->
+        <div class="rooms-wrapper">
+          <select id="guest-count" onchange="document.querySelector('.room-count').innerText = Math.ceil(this.value / 2)">
+            <option disabled selected>Rooms & Guests</option>
+            <option value="1">1 Person</option>
+            <option value="2">2 People</option>
+            <option value="3">3 People</option>
+            <option value="4">4 People</option>
+            <option value="5">5 People</option>
+            <option value="6">6 People</option>
+            <option value="7">7 People</option>
+          </select>
+          <div class="room-output">
+            Rooms Needed: <span class="room-count">0</span>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Bottom Inputs -->
+      <div class="bottom-inputs">
+        <select>
+          <option disabled selected>From City</option>
+            <optgroup label="Andhra Pradesh">
+              <option>Visakhapatnam</option>
+              <option>Araku Valley</option>
+              <option>Vijayawada</option>
+              <option>Tirupati</option>
+              <option>Amaravati</option>
+            </optgroup>
+          
+            <optgroup label="Assam">
+              <option>Guwahati</option>
+              <option>Majuli</option>
+              <option>Tezpur</option>
+              <option>Jorhat</option>
+              <option>Sivasagar</option>
+            </optgroup>
+          
+            <optgroup label="Bihar">
+              <option>Patna</option>
+              <option>Gaya</option>
+              <option>Rajgir</option>
+              <option>Nalanda</option>
+              <option>Vaishali</option>
+            </optgroup>
+          
+            <optgroup label="Chhattisgarh">
+              <option>Raipur</option>
+              <option>Jagdalpur</option>
+              <option>Bhilai</option>
+              <option>Bilaspur</option>
+              <option>Kawardha</option>
+            </optgroup>
+          
+            <optgroup label="Delhi">
+              <option>India Gate</option>
+              <option>Qutub Minar</option>
+              <option>Red Fort</option>
+              <option>Chandni Chowk</option>
+              <option>Lotus Temple</option>
+            </optgroup>
+          
+            <optgroup label="Goa">
+              <option>Panaji</option>
+              <option>Calangute</option>
+              <option>Baga</option>
+              <option>Vasco da Gama</option>
+              <option>Palolem</option>
+            </optgroup>
+          
+            <optgroup label="Himachal Pradesh">
+              <option>Shimla</option>
+              <option>Manali</option>
+              <option>Dharamshala</option>
+              <option>Dalhousie</option>
+              <option>Kullu</option>
+            </optgroup>
+          
+            <optgroup label="Kashmir">
+              <option>Srinagar</option>
+              <option>Gulmarg</option>
+              <option>Pahalgam</option>
+              <option>Sonamarg</option>
+              <option>Leh</option>
+            </optgroup>
+          
+            <optgroup label="Kerala">
+              <option>Kochi</option>
+              <option>Alleppey</option>
+              <option>Munnar</option>
+              <option>Thiruvananthapuram</option>
+              <option>Kumarakom</option>
+            </optgroup>
+          
+            <!-- You can repeat the same pattern for other states as well -->
+          </select>
+          
+        </select>
+        <select>
+          <option disabled selected>To City</option>
+            <optgroup label="Andhra Pradesh">
+              <option>Visakhapatnam</option>
+              <option>Araku Valley</option>
+              <option>Vijayawada</option>
+              <option>Tirupati</option>
+              <option>Amaravati</option>
+            </optgroup>
+          
+            <optgroup label="Assam">
+              <option>Guwahati</option>
+              <option>Majuli</option>
+              <option>Tezpur</option>
+              <option>Jorhat</option>
+              <option>Sivasagar</option>
+            </optgroup>
+          
+            <optgroup label="Bihar">
+              <option>Patna</option>
+              <option>Gaya</option>
+              <option>Rajgir</option>
+              <option>Nalanda</option>
+              <option>Vaishali</option>
+            </optgroup>
+          
+            <optgroup label="Chhattisgarh">
+              <option>Raipur</option>
+              <option>Jagdalpur</option>
+              <option>Bhilai</option>
+              <option>Bilaspur</option>
+              <option>Kawardha</option>
+            </optgroup>
+          
+            <optgroup label="Delhi">
+              <option>India Gate</option>
+              <option>Qutub Minar</option>
+              <option>Red Fort</option>
+              <option>Chandni Chowk</option>
+              <option>Lotus Temple</option>
+            </optgroup>
+          
+            <optgroup label="Goa">
+              <option>Panaji</option>
+              <option>Calangute</option>
+              <option>Baga</option>
+              <option>Vasco da Gama</option>
+              <option>Palolem</option>
+            </optgroup>
+          
+            <optgroup label="Himachal Pradesh">
+              <option>Shimla</option>
+              <option>Manali</option>
+              <option>Dharamshala</option>
+              <option>Dalhousie</option>
+              <option>Kullu</option>
+            </optgroup>
+          
+            <optgroup label="Kashmir">
+              <option>Srinagar</option>
+              <option>Gulmarg</option>
+              <option>Pahalgam</option>
+              <option>Sonamarg</option>
+              <option>Leh</option>
+            </optgroup>
+          
+            <optgroup label="Kerala">
+              <option>Kochi</option>
+              <option>Alleppey</option>
+              <option>Munnar</option>
+              <option>Thiruvananthapuram</option>
+              <option>Kumarakom</option>
+            </optgroup>
+          
+        </select>
+        <input type="date" placeholder="Departure Date">
+        <input type="text" placeholder="Approx Budget">
+      </div>
+    </div>
+  </div>
+<!-------------------------------------------------------3rd page------------------------------------------------------>
+
+
+  <section class="main-tour-section">
+    <section class="tour-section">
+      <h2 class="section-heading">Top Destinations Across India :-</h2>
+      
+      <div class="tour-row">
+        <!-- A-Z Alphabetical State Cards, Smart Routing Based on Tour Type -->
+
+        <a href="{{ url_for('andhra_pradesh') }}" class="glass-card">
+  <img src="{{ url_for('static', filename='images/Andhra-Pradesh.jpg') }}" alt="Andhra Pradesh">
+  <h3>Andhra Pradesh</h3>
+  <p>Starting at ₹21,000 / Per person</p>
+</a>
+        
+        <a href="{{ url_for('Assam') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Assam.jpg') }}" alt="Assam">
+          <h3>Assam</h3>
+          <p>Starting at ₹22,700 / Per person</p>
+        </a>
+        
+
+        <a href="{{ url_for('bihar') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Bihar.jpg') }}" alt="Bihar">
+          <h3>Bihar</h3>
+          <p>Starting at ₹16,900 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('chhattisgarh') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Chhattisgarh.jpg') }}" alt="Chhattisgarh">
+          <h3>Chhattisgarh</h3>
+          <p>Starting at ₹19,900 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('delhi') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Delhi.jpg') }}" alt="Delhi">
+          <h3>Delhi</h3>
+          <p>Starting at ₹16,800 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('goa') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Goa.jpg') }}" alt="Goa">
+          <h3>Goa</h3>
+          <p>Starting at ₹15,800 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('gujarat') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Gujarat.jpg') }}" alt="Gujarat">
+          <h3>Gujarat</h3>
+          <p>Starting at ₹20,000 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Himachal-Pradesh.jpg') }}" alt="Himachal Pradesh">
+          <h3>Himachal Pradesh</h3>
+          <p>Starting at ₹25,000 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Kashmir.jpg') }}" alt="Kashmir">
+          <h3>Kashmir</h3>
+          <p>Starting at ₹30,200 / Per person</p>
+        </a>
+             
+        <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Kerala.jpg') }}" alt="Kerala">
+          <h3>Kerala</h3>
+          <p>Starting at ₹39,500 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Madhya-Pradesh.jpg') }}" alt="Madhya Pradesh">
+          <h3>Madhya Pradesh</h3>
+          <p>Starting at ₹24,500 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Maharashtra.jpg') }}" alt="Maharashtra">
+          <h3>Maharashtra</h3>
+          <p>Starting at ₹18,300 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Meghalaya.jpg') }}" alt="Meghalaya">
+          <h3>Meghalaya</h3>
+          <p>Starting at ₹28,300 / Per person</p>
+        </a>
+        
+                <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Mizoram.jpg') }}" alt="Mizoram">
+          <h3>Mizoram</h3>
+          <p>Starting at ₹24,000 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Odisha.jpg') }}" alt="Odisha">
+          <h3>Odisha</h3>
+          <p>Starting at ₹17,000 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Panjab.jpg') }}" alt="Punjab">
+          <h3>Punjab</h3>
+          <p>Starting at ₹20,500 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Rajasthan.jpg') }}" alt="Rajasthan">
+          <h3>Rajasthan</h3>
+          <p>Starting at ₹23,600 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Sikkim.jpg') }}" alt="Sikkim">
+          <h3>Sikkim</h3>
+          <p>Starting at ₹26,000 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Tamil-Nadu.jpg') }}" alt="Tamil Nadu">
+          <h3>Tamil Nadu</h3>
+          <p>Starting at ₹21,900 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Telangana.jpg') }}" alt="Telangana">
+          <h3>Telangana</h3>
+          <p>Starting at ₹19,000 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Uttarakhand.jpg') }}" alt="Uttarakhand">
+          <h3>Uttarakhand</h3>
+          <p>Starting at ₹22,000 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/Uttar-Pradesh.jpg') }}" alt="Uttar Pradesh">
+          <h3>Uttar Pradesh</h3>
+          <p>Starting at ₹19,800 / Per person</p>
+        </a>
+        
+        <a href="{{ url_for('temple_tours') }}" class="glass-card">
+          <img src="{{ url_for('static', filename='images/West-Bengal.jpg') }}" alt="West Bengal">
+          <h3>West Bengal</h3>
+          <p>Starting at ₹18,500 / Per person</p>
+        </a>
+        
+      </section>  
+     </section>                         
+<!-------------------------------------------------------4th page------------------------------------------------------>
+<section class="title-style">
+  <div class="category-title">
+    <h5 style="text-align: center; color: #f0f0f0; font-size: 1.2rem;">CATEGORY</h5>
+    <h3 style="text-align: center; color: white; font-size: 2.5rem;">We Offer Best Services</h3>
+  </div>
+
+  <div class="services-card" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; margin-top: 30px;">
+
+    <!-- Card 1 -->
+    <a href="{{ url_for('temple_tours') }}" style="text-decoration: none;">
+      <div class="card" style="width: 200px; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; backdrop-filter: blur(10px); text-align: center;">
+        <img src="static/images/icon1.png" alt="Temple Icon" width="105">
+        <h4 style="color: white;">Temple Tours</h4>
+        <p style="color: #ddd;">Explore spiritual India through heritage & divine sites.</p>
+      </div>
+    </a>
+
+    <!-- Card 2 -->
+    <a href="{{ url_for('wildlife_trips') }}" style="text-decoration: none;">
+  <div class="card" style="width: 200px; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; backdrop-filter: blur(10px); text-align: center;">
+    <img src="{{ url_for('static', filename='images/icon2.png') }}" alt="Wildlife Icon" width="105">
+    <h4 style="color: white;">Wildlife Adventures Trips</h4>
+    <p style="color: #ddd;">Explore exotic wildlife safaris, thrilling treks and jungle experiences across India's natural reserves</p>
+  </div>
+</a>
+
+    <!-- Card 3 -->
+<a href="{{ url_for('beach_holidays') }}" style="text-decoration: none;">
+  <div class="card" style="width: 200px; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; backdrop-filter: blur(10px); text-align: center;">
+    <img src="{{ url_for('static', filename='images/icon3.png') }}" alt="Beach Icon" width="105">
+    <h4 style="color: white;">Beach Holidays</h4>
+    <p style="color: #ddd;">Chill at India's most serene and sunny beaches.</p>
+  </div>
+</a>
+
+    <!-- Card 4 -->
+    <a href="{{ url_for('cultural') }}" style="text-decoration: none;">
+      <div class="card" style="width: 200px; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; backdrop-filter: blur(10px); text-align: center;">
+        <img src="static/images/icon4.png" alt="Cultural Icon" width="105">
+        <h4 style="color: white;">Cultural Festival Tour</h4>
+        <p style="color: #ddd;">Explore vibrant cultural festivals & traditional camel rides of Rajasthan.</p>
+      </div>
+    </a>
+<footer class="site-footer">
+  <p>© 2025 All rights reserved | Designed by <span class="brand">_PixelQueen</span></p>
+</footer>
+  </div>
+</section>
+</body>
+</html>

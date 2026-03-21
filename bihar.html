@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bihar Tourism</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bihar-page">
+
+  <!-- Title Section -->
+  <header class="title-section">
+    <h1>Bihar</h1>
+    <h3>India’s Ancient Land of Heritage and Culture</h3>
+  </header>
+
+  <!-- Main Content -->
+  <section class="bihar-content">
+    <!-- Left Side: Intro -->
+    <div class="intro-box glass-effect">
+  <h2>Discover Bihar</h2>
+
+  <p>
+    Bihar, situated in the eastern part of India, is one of the oldest inhabited regions in the world.
+    Its history dates back to the Vedic period and the era of Mahajanapadas Known as the cradle of
+    Indian civilization, Bihar has witnessed the rise of mighty empires such as the Mauryas, the Guptas,
+    and the Palas. The land gave birth to two of the greatest religions of the world – Buddhism and Jainism.
+    Gautama Buddha attained enlightenment in Bodh Gaya, while Lord Mahavira, the 24th Tirthankara of Jainism
+    also preached here. This makes Bihar not just a state but a spiritual destination of global significance.
+  </p>
+  
+  <p>
+    Geographically, Bihar is enriched by the fertile plains of the Ganga, Gandak, and Kosi rivers, which
+    make it one of India’s most agriculturally productive states. The northern region touches Nepal, while
+    in the south it is bordered by Jharkhand. Despite its simplicity, Bihar is home to mesmerizing landscapes
+    ranging from lush fields to historic ruins that whisper tales of its glorious past.
+  </p>
+  
+  <p>
+    Culturally, Bihar is a blend of tradition, festivals, and art. Chhath Puja, the most iconic festival
+    of the state, reflects devotion and unity as people worship the Sun God on riverbanks. Folk arts like
+    Madhubani painting and Bhojpuri folk songs have gained international recognition. The cuisines of Bihar,
+    such as litti-chokha, khaja, and sattu-based dishes, reflect its earthy lifestyle and unique flavors.
+  </p>
+  
+  <p>
+    For tourists, Bihar is an unparalleled destination. Bodh Gaya’s Mahabodhi Temple is a UNESCO World
+    Heritage Site attracting pilgrims from across the globe. Nalanda, once the seat of the world’s oldest
+    university, still carries the charm of ancient learning. Rajgir’s hot springs, Vaishali’s Buddhist stupas,
+    Vikramshila ruins, and Pawapuri Jain temples add to the spiritual and historical significance. Apart
+    from these, the Patna Museum, Sanjay Gandhi Zoological Park, and eco-tourism spots near Valmiki Tiger
+    Reserve offer varied experiences.
+  </p>
+  <p>
+    Bihar is not just a place to see monuments, but a destination to experience India’s soul. Its rich history,
+    sacred landmarks, warm people, and vibrant culture make it one of the best travel spots in India. Visiting
+    Bihar is like taking a journey back in time while experiencing living traditions. For those who seek
+    spirituality, history, culture, and authenticity, Bihar is not just a destination—it is an unforgettable experience.
+  </p>
+</div>
+
+<!------------------------------------------------Leaflet CSS----------------------------------------------------------->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<div id="map" style="height: 420px; width: 30%; border-radius: 7px;"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // 1) Map init (center roughly over Bihar; zoom/pan like Google)
+  const map = L.map("map", {
+    zoomControl: true,
+    scrollWheelZoom: true,
+  }).setView([25.6, 85.5], 7);
+
+  // 2) Base layer (Google-like look via OSM standard)
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "&copy; OpenStreetMap contributors",
+  }).addTo(map);
+
+  // 3) Load Bihar boundary (GeoJSON) and draw red outline
+  fetch("{{ url_for('static', filename='geojson/bihar.geojson') }}")
+    .then((r) => r.json())
+    .then((geojson) => {
+      const boundary = L.geoJSON(geojson, {
+         style: {
+         color: "#000000",   // black outline
+         weight: 4,
+         opacity: 1,
+         fill: false,
+                },
+
+      }).addTo(map);
+
+      // 4) Fit map to boundary
+      map.fitBounds(boundary.getBounds(), { padding: [20, 20] });
+    })
+    .catch((e) => console.error("Boundary load error:", e));
+
+    // Marker with emoji + popup
+L.marker([25.61, 85.14]) // Patna location
+  .addTo(map)
+  .bindPopup("🛕 Mahavir Mandir, Patna");
+
+L.marker([24.69, 84.99]) // Gaya
+  .addTo(map)
+  .bindPopup("🛕 Vishnupad Mandir, Gaya");
+
+L.marker([24.69, 84.99]) // Bodh Gaya
+  .addTo(map)
+  .bindPopup("🚩 Mahabodhi Temple, Bodh Gaya");
+
+L.marker([25.09, 85.42]) // Nalanda
+  .addTo(map)
+  .bindPopup("🏛 Nalanda University Ruins");
+
+L.marker([25.45, 85.27]) // Patna Zoo
+  .addTo(map)
+  .bindPopup("🐾 Patna Zoo (Sanjay Gandhi Biological Park)");
+
+</script>
+  </section>
+
+<!---------------------------------------------experiment--------------------------------------------------->
+<section>
+
+  <!-- STATE BOX 2 - BIHAR -->
+  <div class="state-box theme-bihar">
+    <h2 class="state-title">Top Tourist Places in Bihar</h2>
+
+    <div class="cities-container">
+
+      <!-- Patna -->
+      <div class="city-box">
+        <h3 class="city-title">Patna</h3>
+        <ul>
+          <li>Mahavir Mandir - Patna Junction</li>
+          <li>Patan Devi Temple - Sadikpur</li>
+          <li>ISKCON Temple - Budh Marg</li>
+          <li>Takht Shri Harmandir Sahib (Patna Sahib Gurudwara)</li>
+          <li>Golghar</li>
+          <li>Patna Museum</li>
+          <li>Sanjay Gandhi Biological Park (Patna Zoo)</li>
+          <li>Bihar Museum</li>
+          <li>Kumhrar Park (Ancient Ruins)</li>
+          <li>Ganga Ghat Aarti</li>
+        </ul>
+      </div>
+
+      <!-- Bodh Gaya -->
+      <div class="city-box">
+        <h3 class="city-title">Bodh Gaya</h3>
+        <ul>
+          <li>Mahabodhi Temple (UNESCO World Heritage)</li>
+          <li>Vishnupad Temple</li>
+          <li>Great Buddha Statue</li>
+          <li>Tibetan Monastery</li>
+          <li>Thai Monastery</li>
+          <li>Japanese Temple</li>
+          <li>Indosan Nippon Japanese Temple</li>
+          <li>Royal Bhutan Monastery</li>
+          <li>Chinese Temple</li>
+          <li>Sujata Kuti (Sujata Village)</li>
+        </ul>
+      </div>
+
+      <!-- Rajgir -->
+      <div class="city-box">
+        <h3 class="city-title">Rajgir</h3>
+        <ul>
+          <li>Venuvana Vihara</li>
+          <li>Maniyar Math Temple</li>
+          <li>Griddhakuta Hill (Vulture’s Peak)</li>
+          <li>Rajgir Hot Springs</li>
+          <li>Japanese Stupa (Shanti Stupa)</li>
+          <li>Ajatshatru Fort</li>
+          <li>Jarasandha ka Akhara</li>
+          <li>Saptaparni Caves</li>
+          <li>Son Bhandar Caves</li>
+        </ul>
+      </div>
+
+      <!-- Vaishali -->
+      <div class="city-box">
+        <h3 class="city-title">Vaishali</h3>
+        <ul>
+          <li>Budh Stupa Temple</li>
+          <li>Vaishali Museum</li>
+          <li>Vishwa Shanti Stupa</li>
+          <li>Ashokan Pillar</li>
+          <li>Abhishek Pushkarini (Coronation Tank)</li>
+        </ul>
+      </div>
+
+      <!-- Nalanda -->
+      <div class="city-box">
+        <h3 class="city-title">Nalanda</h3>
+        <ul>
+          <li>Nalanda University Ruins (UNESCO)</li>
+          <li>Hiuen Tsang Memorial Hall</li>
+          <li>Nalanda Archaeological Museum</li>
+          <li>Surya Mandir</li>
+        </ul>
+      </div>
+
+      <!-- Other Attractions -->
+      <div class="city-box">
+        <h3 class="city-title">Other Famous Attractions</h3>
+        <ul>
+          <li>Vikramshila University Ruins (Bhagalpur)</li>
+          <li>Kaimur Wildlife Sanctuary</li>
+          <li>Valmiki National Park & Tiger Reserve</li>
+          <li>Kanwar Lake Bird Sanctuary (Begusarai)</li>
+          <li>Rohtas Fort (Shergarh)</li>
+          <li>Kesaria Stupa (East Champaran)</li>
+          <li>Chhath Puja Ghats (Across Bihar)</li>
+          <li>Madhubani (Mithila Art & Culture)</li>
+          <li>Sasaram Tomb of Sher Shah Suri</li>
+          <li>Barabar Caves (Jehanabad)</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-------------------------------ex2---------------------------------------->
+
+<!-- Tourist Places Section -->
+<section class="places-section">
+  <h2 class="section-title">Popular Tourist Spots in Bihar</h2>
+  <div class="places-grid">
+
+    <!-- Place Card -->
+    <div class="place-card glass-effect">
+      <img src="{{ url_for('static', filename='images/bodhgaya.jpg') }}" alt="Bodh Gaya">
+      <h3>Bodh Gaya</h3>
+      <p>Mahabodhi Temple where Buddha attained enlightenment.</p>
+      <button class="book-btn" onclick="openBookingForm('Bodh Gaya')">Book Now</button>
+    </div>
+
+    <div class="place-card glass-effect">
+      <img src="{{ url_for('static', filename='images/nalanda.jpg') }}" alt="Nalanda">
+      <h3>Nalanda</h3>
+      <p>Ruins of Nalanda University – one of the oldest learning centers.</p>
+      <button class="book-btn" onclick="openBookingForm('Nalanda')">Book Now</button>
+    </div>
+
+    <div class="place-card glass-effect">
+      <img src="{{ url_for('static', filename='images/rajgir.jpg') }}" alt="Rajgir">
+      <h3>Rajgir</h3>
+      <p>Hot springs, Vulture’s Peak & Buddhist-Jain heritage sites.</p>
+      <button class="book-btn" onclick="openBookingForm('Rajgir')">Book Now</button>
+    </div>
+
+    <div class="place-card glass-effect">
+      <img src="{{ url_for('static', filename='images/vaishali.jpg') }}" alt="Vaishali">
+      <h3>Vaishali</h3>
+      <p>Land of Buddhist stupas & birthplace of Lord Mahavira.</p>
+      <button class="book-btn" onclick="openBookingForm('Vaishali')">Book Now</button>
+    </div>
+
+  </div>
+</section>
+
+<!-----------------------------------------ex3-------------------------------------------->
+<!-- ================= Stay & Food Section ================= -->
+<!-- Stay & Food Section -->
+<section class="stay-food-section">
+  <!-- Intro Highlight -->
+  <div class="intro-highlight glass-effect">
+    <p>
+      Explore Bihar with safe, comfortable stays and delicious local foods. From luxury hotels in Patna 
+      to serene resorts near Bodh Gaya, enjoy modern amenities blended with traditional charm.  
+      Relax in peaceful gardens, scenic river views, and cozy rooms for a truly memorable trip.
+    </p>
+  </div>
+
+  <!-- Stay Title -->
+  <div class="mirror-title glass-effect">
+    <h2>🏨 Safe & Comfortable Stays</h2>
+  </div>
+
+  <!-- Hotels Slider Cards -->
+  <div class="hotels-slider">
+    <div class="hotel-card glass-effect">
+      <div class="hotel-images">
+        <img src="{{ url_for('static', filename='images/hotel1.jpg') }}" alt="Hotel Maurya">
+        <img src="{{ url_for('static', filename='images/hotel1_room.jpg') }}" alt="Hotel Maurya Room">
+      </div>
+      <h3>Hotel Maurya, Patna</h3>
+      <p>⭐️⭐️⭐️⭐️⭐️ | Approx Budget: ₹3500/night</p>
+      <p class="comment">Perfect for families! Cozy rooms with river view balconies.</p>
+      <button class="book-btn">Book Now</button>
+    </div>
+    <div class="hotel-card glass-effect">
+      <div class="hotel-images">
+        <img src="{{ url_for('static', filename='images/hotel2.jpg') }}" alt="Hotel Bodh Residency">
+        <img src="{{ url_for('static', filename='images/hotel2_room.jpg') }}" alt="Hotel Bodh Residency Room">
+      </div>
+      <h3>Hotel Bodh Residency, Bodh Gaya</h3>
+      <p>⭐️⭐️⭐️⭐️ | Approx Budget: ₹2500/night</p>
+      <p class="comment">Great location near Mahabodhi Temple, peaceful gardens!</p>
+      <button class="book-btn">Book Now</button>
+    </div>
+    <div class="hotel-card glass-effect">
+      <div class="hotel-images">
+        <img src="{{ url_for('static', filename='images/hotel3.jpg') }}" alt="Rajgir Resort">
+        <img src="{{ url_for('static', filename='images/hotel3_room.jpg') }}" alt="Rajgir Resort Room">
+      </div>
+      <h3>Rajgir Resort, Rajgir</h3>
+      <p>⭐️⭐️⭐️⭐️⭐️ | Approx Budget: ₹4000/night</p>
+      <p class="comment">Stunning hills view, modern rooms and great service!</p>
+      <button class="book-btn">Book Now</button>
+    </div>
+  </div>
+
+  <!-- Food Title -->
+  <div class="mirror-title glass-effect">
+    <h2>🍛 Must-Try Bihari Delicacies</h2>
+  </div>
+
+  <!-- Foods Grid -->
+  <div class="foods-grid">
+    <div class="food-card glass-effect">
+      <img src="{{ url_for('static', filename='images/litti_chokha.jpg') }}" alt="Litti Chokha">
+      <h3>Litti Chokha</h3>
+      <p>Rustic flavor of Bihar’s tradition 😋</p>
+    </div>
+    <div class="food-card glass-effect">
+      <img src="{{ url_for('static', filename='images/khaja.jpg') }}" alt="Khaja">
+      <h3>Silao Khaja</h3>
+      <p>Sweet and crispy traditional delight 🍬</p>
+    </div>
+    <div class="food-card glass-effect">
+      <img src="{{ url_for('static', filename='images/thekua.jpg') }}" alt="Thekua">
+      <h3>Thekua</h3>
+      <p>Festive delight made for Chhath Puja 🎉</p>
+    </div>
+    <div class="food-card glass-effect">
+      <img src="{{ url_for('static', filename='images/makhana.jpg') }}" alt="Makhana">
+      <h3>Makhana Delicacies</h3>
+      <p>Healthy snack & dessert from Mithila 🌸</p>
+    </div>
+  </div>
+</section>
+
+<!-- Booking Modal -->
+<div class="modal-overlay"></div>
+<div class="booking-modal glass-effect">
+  <h3>Book Your Stay</h3>
+  <label>Guests:</label>
+  <input type="number" min="1" value="1">
+  <label>Rooms:</label>
+  <input type="number" min="1" value="1">
+  <button class="confirm-btn">Confirm ✅</button>
+</div>
+
+<!-- JS -->
+<script>
+// Booking Popup
+const overlay = document.querySelector(".modal-overlay");
+const modal = document.querySelector(".booking-modal");
+const bookBtns = document.querySelectorAll(".book-btn");
+const confirmBtn = document.querySelector(".confirm-btn");
+
+bookBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    overlay.style.display = "block";
+    modal.style.display = "block";
+  });
+});
+overlay.addEventListener("click", () => {
+  overlay.style.display = "none";
+  modal.style.display = "none";
+});
+confirmBtn.addEventListener("click", () => {
+  alert("✅ Booking confirmed!");
+  overlay.style.display = "none";
+  modal.style.display = "none";
+});
+
+// Hotels Image Slider
+document.querySelectorAll('.hotel-card').forEach(card => {
+  const images = card.querySelectorAll('img');
+  let index = 0;
+  setInterval(() => {
+    images.forEach(img => img.style.display = 'none');
+    images[index].style.display = 'block';
+    index = (index + 1) % images.length;
+  }, 2500); // 2.5 sec swap
+});
+</script>
+
+
+<!------------------------------------------------ex4-------------------------------------------------->
+<section class="attractions-section">
+  <h2 class="section-title">✨ Top Attractions of Bihar</h2>
+  <p class="section-intro">
+    Bihar offers a blend of world-famous heritage and natural wonders. 
+    From UNESCO sites that attract global tourists to hidden gems across India, 
+    each destination has its own story, budget, and best time to explore.
+  </p>
+
+  <!-- 🌍 International Level -->
+  <h3 class="sub-title">🌍 International Level Attractions</h3>
+  <div class="cards-grid">
+    <div class="attraction-card">
+      <img src="../images/bodhgaya.jpg" alt="Bodh Gaya">
+      <h4>Bodh Gaya – Mahabodhi Temple</h4>
+      <p><b>Budget:</b> ₹2000–₹4000</p>
+      <p><b>Best Time:</b> Oct–Feb</p>
+      <p class="comment">Spiritual hub where Buddha attained enlightenment. UNESCO World Heritage Site.</p>
+      <button class="book-btn" onclick="openBooking('Bodh Gaya – Mahabodhi Temple')">Book Now</button>
+    </div>
+
+    <div class="attraction-card">
+      <img src="../images/nalanda.jpg" alt="Nalanda">
+      <h4>Nalanda – Ancient University</h4>
+      <p><b>Budget:</b> ₹1500–₹3000</p>
+      <p><b>Best Time:</b> Nov–Mar</p>
+      <p class="comment">Ruins of world’s oldest residential university. UNESCO World Heritage.</p>
+      <button class="book-btn" onclick="openBooking('Nalanda – Ancient University')">Book Now</button>
+    </div>
+
+    <div class="attraction-card">
+      <img src="../images/rajgir.jpg" alt="Rajgir">
+      <h4>Rajgir – Historic City</h4>
+      <p><b>Budget:</b> ₹1500–₹3500</p>
+      <p><b>Best Time:</b> Nov–Feb</p>
+      <p class="comment">World Peace Pagoda, hot springs, and Buddhist & Jain heritage.</p>
+      <button class="book-btn" onclick="openBooking('Rajgir – Historic City')">Book Now</button>
+    </div>
+
+    <div class="attraction-card">
+      <img src="../images/patna.jpg" alt="Patna">
+      <h4>Patna – Capital City</h4>
+      <p><b>Budget:</b> ₹2000–₹5000</p>
+      <p><b>Best Time:</b> Oct–Mar</p>
+      <p class="comment">Gateway of Bihar with international airport, culture & heritage sites.</p>
+      <button class="book-btn" onclick="openBooking('Patna – Capital City')">Book Now</button>
+    </div>
+  </div>
+
+  <!-- 🇮🇳 National Level -->
+  <h3 class="sub-title">🇮🇳 National Level Attractions</h3>
+  <div class="cards-grid">
+    <div class="attraction-card">
+      <img src="../images/kesaria.jpg" alt="Kesaria Stupa">
+      <h4>Kesaria Stupa</h4>
+      <p><b>Budget:</b> ₹1000–₹2000</p>
+      <p><b>Best Time:</b> Nov–Feb</p>
+      <p class="comment">World’s tallest Buddhist stupa.</p>
+      <button class="book-btn" onclick="openBooking('Kesaria Stupa')">Book Now</button>
+    </div>
+
+    <div class="attraction-card">
+      <img src="../images/patna.jpg" alt="Patna">
+      <h4>Patna – Capital City</h4>
+      <p><b>Budget:</b> ₹2000–₹5000</p>
+      <p><b>Best Time:</b> Oct–Mar</p>
+      <p class="comment">Famous for Patna Museum, Golghar & Takht Shri Harimandir Ji Patna Sahib.</p>
+      <button class="book-btn" onclick="openBooking('Patna – Capital City')">Book Now</button>
+    </div>
+
+    <div class="attraction-card">
+      <img src="../images/rajgir.jpg" alt="Rajgir">
+      <h4>Rajgir – Historic City</h4>
+      <p><b>Budget:</b> ₹1500–₹3500</p>
+      <p><b>Best Time:</b> Nov–Feb</p>
+      <p class="comment">Known for World Peace Pagoda, Griddhakuta Mountain & Venuvan.</p>
+      <button class="book-btn" onclick="openBooking('Rajgir – Historic City')">Book Now</button>
+    </div>
+
+    <div class="attraction-card">
+      <img src="../images/vaishali.jpg" alt="Vaishali">
+      <h4>Vaishali – Birthplace of Mahavira</h4>
+      <p><b>Budget:</b> ₹1200–₹2500</p>
+      <p><b>Best Time:</b> Oct–Mar</p>
+      <p class="comment">Important for Jainism & Buddhism with ancient relics.</p>
+      <button class="book-btn" onclick="openBooking('Vaishali – Birthplace of Mahavira')">Book Now</button>
+    </div>
+
+    <div class="attraction-card">
+      <img src="../images/sher-shah-suri.jpg" alt="Sher Shah Suri Tomb">
+      <h4>Tomb of Sher Shah Suri – Sasaram</h4>
+      <p><b>Budget:</b> ₹1000–₹2000</p>
+      <p><b>Best Time:</b> Nov–Feb</p>
+      <p class="comment">Masterpiece of Indo-Islamic architecture.</p>
+      <button class="book-btn" onclick="openBooking('Tomb of Sher Shah Suri – Sasaram')">Book Now</button>
+    </div>
+
+    <div class="attraction-card">
+      <img src="../images/valmiki.jpg" alt="Valmiki National Park">
+      <h4>Valmiki National Park</h4>
+      <p><b>Budget:</b> ₹3000–₹6000</p>
+      <p><b>Best Time:</b> Nov–Apr</p>
+      <p class="comment">Home to Bengal tigers & rich wildlife on India–Nepal border.</p>
+      <button class="book-btn" onclick="openBooking('Valmiki National Park')">Book Now</button>
+    </div>
+  </div>
+</section>
+
+<!-- Booking Popup -->
+
+<div class="booking-popup" id="bookingPopup">
+  <div class="booking-box">
+    <span class="close-btn" onclick="closeBooking()">&times;</span>
+    <h3 id="bookingTitle">Book Now</h3>
+    <form>
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" required>
+
+      <label for="people">No. of People:</label>
+      <input type="number" id="people" min="1" required>
+
+      <label for="days">No. of Days:</label>
+      <input type="number" id="days" min="1" required>
+
+      <button type="submit" class="confirm-btn">Confirm Booking</button>
+    </form>
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+  function openBooking(placeName) {
+    document.getElementById("bookingTitle").innerText = "Book: " + placeName;
+    document.getElementById("bookingPopup").style.display = "flex";
+  }
+
+  function closeBooking() {
+    document.getElementById("bookingPopup").style.display = "none";
+  }
+</script>
+
+</body>
+</html>

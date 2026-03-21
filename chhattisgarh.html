@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chhattisgarh Tourism</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/chhattisgarh.css') }}">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body class="chhattisgarh-page">
+
+  <!-- Title Section -->
+  <header class="title-section">
+    <h1>Chhattisgarh</h1>
+    <h3>India’s Green Heart — Forests, Waterfalls & Tribal Heritage</h3>
+  </header>
+
+  <!-- Main Content -->
+  <section class="bihar-content">
+    <!-- Left Side: Intro -->
+    <div class="intro-box glass-effect">
+      <h2>Discover Chhattisgarh</h2>
+
+      <p>
+        Chhattisgarh sits in the center of India and is rich in dense forests, cascading waterfalls,
+        ancient temples, and a vibrant tribal culture. Created in 2000, the state quickly became known
+        for its breathtaking natural beauty — from the wide Chitrakote Falls to the deep caves of Kanger Valley.
+        A paradise for eco-tourists and cultural travellers alike.
+      </p>
+
+      <p>
+        The region preserves several indigenous traditions, folk arts, and festivals. Iconic destinations
+        include Jagdalpur, Bastar, Raipur, Bilaspur, and Dantewada. The state is rich in biodiversity,
+        with national parks and sanctuaries that protect tigers, leopards, deer, langurs and many bird species.
+      </p>
+
+      <p>
+        Spiritual seekers will find ancient shrines like the Danteshwari and Bhoramdeo temples, while
+        adventure lovers can explore caves, rock formations, and tribal markets. For food lovers,
+        local cuisine includes steamed rice delicacies, sweets, and unique tribal flavours that can’t
+        be found elsewhere.
+      </p>
+
+      <p>
+        Whether you seek wild nature, colourful tribal culture, historic temples or peaceful retreats,
+        Chhattisgarh promises an authentic Indian experience away from the usual tourist crowds.
+      </p>
+    </div>
+
+    <!-- Right Side: Map -->
+    <div class="map-box glass-effect">
+      <h3>Map of Chhattisgarh</h3>
+      <div id="map" style="height: 420px; width: 100%; border-radius: 7px;"></div>
+      <p class="map-note">Markers show key tourist spots. The state boundary is outlined.</p>
+    </div>
+  </section>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Map init (center roughly over Chhattisgarh; zoom/pan similar to Bihar page)
+    const map = L.map("map", {
+      zoomControl: true,
+      scrollWheelZoom: true,
+    }).setView([21.3, 81.6], 7);
+
+    // Base layer (OpenStreetMap)
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(map);
+
+    // Load Chhattisgarh boundary GeoJSON and draw outline
+    fetch("{{ url_for('static', filename='geojson/chhattisgarh.geojson') }}")
+      .then((r) => r.json())
+      .then((geojson) => {
+        const boundary = L.geoJSON(geojson, {
+          style: {
+            color: "#000000",
+            weight: 4,
+            opacity: 1,
+            fill: false,
+          },
+        }).addTo(map);
+
+        map.fitBounds(boundary.getBounds(), { padding: [20, 20] });
+      })
+      .catch((e) => console.error("Boundary load error:", e));
+
+    // Markers with emoji + popup (key locations)
+    L.marker([21.2514,81.6296]) // Raipur
+      .addTo(map)
+      .bindPopup("🏛️ Raipur - State Capital");
+
+    L.marker([19.0748,82.0117]) // Jagdalpur
+      .addTo(map)
+      .bindPopup("🌊 Jagdalpur - Gateway to Bastar & Chitrakote");
+
+    L.marker([18.9290,81.8160]) // Chitrakote approximate
+      .addTo(map)
+      .bindPopup("🌊 Chitrakote Falls - 'Niagara of India'");
+
+    L.marker([19.3169,82.0622]) // Kanger Valley area (approx)
+      .addTo(map)
+      .bindPopup("🕳 Kanger Valley National Park & Kailash Caves");
+
+    L.marker([21.0985,81.3341]) // Bilaspur
+      .addTo(map)
+      .bindPopup("🌳 Bilaspur - Gateway to wildlife and temples");
+  </script>
+
+  <!------------------------------------------------state box--------------------------------------------------->
+  <section>
+    <div class="state-box theme-bihar">
+      <h2 class="state-title">Top Tourist Places in Chhattisgarh</h2>
+
+      <div class="cities-container">
+
+        <!-- Raipur -->
+        <div class="city-box">
+          <h3 class="city-title">Raipur</h3>
+          <ul>
+            <li>Telibandha Talab (Marine Drive)</li>
+            <li>Purkhouti Muktangan (Cultural Park)</li>
+            <li>Mahant Ghasidas Museum</li>
+            <li>Budhapara Lake</li>
+            <li>Devpuri Dham</li>
+          </ul>
+        </div>
+
+        <!-- Jagdalpur / Bastar -->
+        <div class="city-box">
+          <h3 class="city-title">Jagdalpur (Bastar)</h3>
+          <ul>
+            <li>Chitrakote Falls (HUSP)</li>
+            <li>Tirathgarh Falls</li>
+            <li>Dandak Caves & Kanger Valley</li>
+            <li>Danteshwari Temple</li>
+            <li>Bastar Palace & Tribal Markets</li>
+          </ul>
+        </div>
+
+        <!-- Dantewada -->
+        <div class="city-box">
+          <h3 class="city-title">Dantewada</h3>
+          <ul>
+            <li>Danteshwari Temple</li>
+            <li>Kailash Caves</li>
+            <li>Bastar rock art & tribal villages</li>
+          </ul>
+        </div>
+
+        <!-- Bilaspur -->
+        <div class="city-box">
+          <h3 class="city-title">Bilaspur</h3>
+          <ul>
+            <li>Achanakmar Wildlife Sanctuary</li>
+            <li>Cave of Sirpur ruins nearby</li>
+            <li>Ratanpur ancient temples</li>
+          </ul>
+        </div>
+
+        <!-- Bastar Art & Culture -->
+        <div class="city-box">
+          <h3 class="city-title">Bastar Art & Culture</h3>
+          <ul>
+            <li>Dokra metal craft</li>
+            <li>Bastar Dussehra festival</li>
+            <li>Tribal dances & handicrafts</li>
+            <li>Local tribal cuisines & markets</li>
+          </ul>
+        </div>
+
+        <!-- Other Attractions -->
+        <div class="city-box">
+          <h3 class="city-title">Other Famous Attractions</h3>
+          <ul>
+            <li>Bhoramdeo Temple (Kabirdham)</li>
+            <li>Kawardha Palace</li>
+            <li>Barnawapara Wildlife Sanctuary</li>
+            <li>Rajim Kumbh (confluence of rivers)</li>
+            <li>Sirpur Archaeological Complex</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-------------------------------places section---------------------------------------->
+  <section class="places-section">
+    <h2 class="section-title">Popular Tourist Spots in Chhattisgarh</h2>
+    <div class="places-grid">
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/chitrakote.jpg') }}" alt="Chitrakote">
+        <h3>Chitrakote Falls</h3>
+        <p>The widest waterfall in India — dramatic and majestic.</p>
+        <button class="book-btn" onclick="openBookingForm('Chitrakote Falls')">Book Now</button>
+      </div>
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/tirathgarh.jpg') }}" alt="Tirathgarh">
+        <h3>Tirathgarh Falls</h3>
+        <p>Multi-tiered falls inside Kanger Valley — perfect for nature walks.</p>
+        <button class="book-btn" onclick="openBookingForm('Tirathgarh Falls')">Book Now</button>
+      </div>
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/kanger.jpg') }}" alt="Kanger Valley">
+        <h3>Kanger Valley National Park</h3>
+        <p>Rich biodiversity, limestone caves and deep forests.</p>
+        <button class="book-btn" onclick="openBookingForm('Kanger Valley National Park')">Book Now</button>
+      </div>
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/bhoramdeo.jpg') }}" alt="Bhoramdeo">
+        <h3>Bhoramdeo Temple</h3>
+        <p>Known as 'Khajuraho of Chhattisgarh' — beautiful stone carvings.</p>
+        <button class="book-btn" onclick="openBookingForm('Bhoramdeo Temple')">Book Now</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-------------------------------- Stay & Food Section --------------------------------->
+  <section class="stay-food-section">
+    <div class="intro-highlight glass-effect">
+      <p>
+        From comfortable hotels in Raipur to forest lodges in Bastar, Chhattisgarh offers stays that bring
+        you closer to nature. Try local tribal cuisine and regional delicacies for an unforgettable taste.
+      </p>
+    </div>
+
+    <div class="mirror-title glass-effect">
+      <h2>🏨 Safe & Comfortable Stays</h2>
+    </div>
+
+    <div class="hotels-slider">
+      <div class="hotel-card glass-effect">
+        <div class="hotel-images">
+          <img src="{{ url_for('static', filename='images/raipur_hotel1.jpg') }}" alt="Hotel in Raipur">
+          <img src="{{ url_for('static', filename='images/raipur_hotel1_room.jpg') }}" alt="Room">
+        </div>
+        <h3>Raipur Hotel Grand</h3>
+        <p>⭐️⭐️⭐️⭐️ | Approx Budget: ₹3000/night</p>
+        <p class="comment">Central, comfortable and family-friendly.</p>
+        <button class="book-btn">Book Now</button>
+      </div>
+
+      <div class="hotel-card glass-effect">
+        <div class="hotel-images">
+          <img src="{{ url_for('static', filename='images/jagdalpur_resort.jpg') }}" alt="Jagdalpur Resort">
+          <img src="{{ url_for('static', filename='images/jagdalpur_room.jpg') }}" alt="Room">
+        </div>
+        <h3>Bastar Eco Resort</h3>
+        <p>⭐️⭐️⭐️⭐️ | Approx Budget: ₹2800/night</p>
+        <p class="comment">Close to Chitrakote with rustic comfort.</p>
+        <button class="book-btn">Book Now</button>
+      </div>
+
+      <div class="hotel-card glass-effect">
+        <div class="hotel-images">
+          <img src="{{ url_for('static', filename='images/bilaspur_hotel.jpg') }}" alt="Bilaspur Hotel">
+          <img src="{{ url_for('static', filename='images/bilaspur_room.jpg') }}" alt="Room">
+        </div>
+        <h3>Bilaspur Heritage Inn</h3>
+        <p>⭐️⭐️⭐️ | Approx Budget: ₹2200/night</p>
+        <p class="comment">Great base for wildlife & temple visits.</p>
+        <button class="book-btn">Book Now</button>
+      </div>
+    </div>
+
+    <div class="mirror-title glass-effect">
+      <h2>🍛 Must-Try Chhattisgarhi Delicacies</h2>
+    </div>
+
+    <div class="foods-grid">
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/faraa.jpg') }}" alt="Faraa">
+        <h3>Faraa</h3>
+        <p>Steamed rice dumpling — simple and healthy.</p>
+      </div>
+
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/dehrori.jpg') }}" alt="Dehrori">
+        <h3>Dehrori</h3>
+        <p>Sweet curd & rice-based festive delicacy.</p>
+      </div>
+
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/chana_samosa.jpg') }}" alt="Chana Samosa">
+        <h3>Chana Samosa</h3>
+        <p>Local spiced samosa filled with chickpeas.</p>
+      </div>
+
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/ant_chutney.jpg') }}" alt="Ant Chutney">
+        <h3>Red Ant Chutney</h3>
+        <p>Unique tribal chutney of Bastar — sour & spicy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Modal (small confirm modal) -->
+  <div class="modal-overlay"></div>
+  <div class="booking-modal glass-effect">
+    <h3>Book Your Stay</h3>
+    <label>Guests:</label>
+    <input type="number" min="1" value="1">
+    <label>Rooms:</label>
+    <input type="number" min="1" value="1">
+    <button class="confirm-btn">Confirm ✅</button>
+  </div>
+
+  <!-- JS: booking popup + hotel slider -->
+  <script>
+    // Booking Popup
+    const overlay = document.querySelector(".modal-overlay");
+    const modal = document.querySelector(".booking-modal");
+    const bookBtns = document.querySelectorAll(".book-btn");
+    const confirmBtn = document.querySelector(".confirm-btn");
+
+    bookBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        overlay.style.display = "block";
+        modal.style.display = "block";
+      });
+    });
+    overlay.addEventListener("click", () => {
+      overlay.style.display = "none";
+      modal.style.display = "none";
+    });
+    confirmBtn.addEventListener("click", () => {
+      alert("✅ Booking confirmed!");
+      overlay.style.display = "none";
+      modal.style.display = "none";
+    });
+
+    // Hotels Image Slider (same logic as Bihar)
+    document.querySelectorAll('.hotel-card').forEach(card => {
+      const images = card.querySelectorAll('img');
+      let index = 0;
+      // hide all initially except first
+      images.forEach((img, i) => img.style.display = (i === 0) ? 'block' : 'none');
+      setInterval(() => {
+        images.forEach(img => img.style.display = 'none');
+        images[index].style.display = 'block';
+        index = (index + 1) % images.length;
+      }, 2500); // 2.5 sec swap
+    });
+
+    // small helper used by "Book Now" buttons on place cards
+    function openBookingForm(placeName) {
+      overlay.style.display = "block";
+      modal.style.display = "block";
+    }
+  </script>
+
+  <!------------------------------------------------ex4-------------------------------------------------->
+  <section class="attractions-section">
+    <h2 class="section-title">✨ Top Attractions of Chhattisgarh</h2>
+    <p class="section-intro">
+      Chhattisgarh blends natural beauty, historic sites and tribal culture. These destinations are highlights for any traveler.
+    </p>
+
+    <!-- International Level -->
+    <h3 class="sub-title">🌍 International Level Attractions</h3>
+    <div class="cards-grid">
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/chitrakote.jpg') }}" alt="Chitrakote">
+        <h4>Chitrakote – Chitrakote Falls</h4>
+        <p><b>Budget:</b> ₹1500–₹3500</p>
+        <p><b>Best Time:</b> Oct–Mar</p>
+        <p class="comment">Spectacular waterfall and scenic surroundings.</p>
+        <button class="book-btn" onclick="openBooking('Chitrakote – Chitrakote Falls')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/kanger.jpg') }}" alt="Kanger Valley">
+        <h4>Kanger Valley – National Park</h4>
+        <p><b>Budget:</b> ₹2000–₹4500</p>
+        <p><b>Best Time:</b> Oct–Feb</p>
+        <p class="comment">Forests, caves, wildlife and trekking.</p>
+        <button class="book-btn" onclick="openBooking('Kanger Valley – National Park')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/bhoramdeo.jpg') }}" alt="Bhoramdeo">
+        <h4>Bhoramdeo – Temple Complex</h4>
+        <p><b>Budget:</b> ₹1000–₹2500</p>
+        <p><b>Best Time:</b> Oct–Feb</p>
+        <p class="comment">Stone carvings reminiscent of Khajuraho.</p>
+        <button class="book-btn" onclick="openBooking('Bhoramdeo – Temple Complex')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/danteshwari.jpg') }}" alt="Danteshwari">
+        <h4>Danteshwari Temple – Dantewada</h4>
+        <p><b>Budget:</b> ₹1000–₹2200</p>
+        <p><b>Best Time:</b> Oct–Feb</p>
+        <p class="comment">Important Shaktipeeth and spiritual centre.</p>
+        <button class="book-btn" onclick="openBooking('Danteshwari Temple')">Book Now</button>
+      </div>
+    </div>
+
+    <!-- National Level -->
+    <h3 class="sub-title">🇮🇳 National Level Attractions</h3>
+    <div class="cards-grid">
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/tirathgarh.jpg') }}" alt="Tirathgarh">
+        <h4>Tirathgarh Falls</h4>
+        <p><b>Budget:</b> ₹800–₹1800</p>
+        <p><b>Best Time:</b> Jul–Feb</p>
+        <p class="comment">Popular for filming and scenic visits.</p>
+        <button class="book-btn" onclick="openBooking('Tirathgarh Falls')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/sirpur.jpg') }}" alt="Sirpur">
+        <h4>Sirpur Archaeological Complex</h4>
+        <p><b>Budget:</b> ₹700–₹1500</p>
+        <p><b>Best Time:</b> Oct–Mar</p>
+        <p class="comment">Ancient ruins and temples from many centuries.</p>
+        <button class="book-btn" onclick="openBooking('Sirpur Archaeological Complex')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/barnawapara.jpg') }}" alt="Barnawapara">
+        <h4>Barnawapara Wildlife Sanctuary</h4>
+        <p><b>Budget:</b> ₹1500–₹3500</p>
+        <p><b>Best Time:</b> Nov–Apr</p>
+        <p class="comment">Good for safaris and birdwatching.</p>
+        <button class="book-btn" onclick="openBooking('Barnawapara Wildlife Sanctuary')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/rajtam.jpg') }}" alt="Kawardha">
+        <h4>Kawardha Palace & Cultural Sites</h4>
+        <p><b>Budget:</b> ₹1200–₹3000</p>
+        <p><b>Best Time:</b> Oct–Mar</p>
+        <p class="comment">Historic palace experiences and culture.</p>
+        <button class="book-btn" onclick="openBooking('Kawardha Palace')">Book Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Popup Form -->
+  <div class="booking-popup" id="bookingPopup">
+    <div class="booking-box">
+      <span class="close-btn" onclick="closeBooking()">&times;</span>
+      <h3 id="bookingTitle">Book Now</h3>
+      <form onsubmit="event.preventDefault(); alert('✅ Booking submitted!'); closeBooking();">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="people">No. of People:</label>
+        <input type="number" id="people" min="1" required>
+
+        <label for="days">No. of Days:</label>
+        <input type="number" id="days" min="1" required>
+
+        <button type="submit" class="confirm-btn">Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openBooking(placeName) {
+      document.getElementById("bookingTitle").innerText = "Book: " + placeName;
+      document.getElementById("bookingPopup").style.display = "flex";
+    }
+
+    function closeBooking() {
+      document.getElementById("bookingPopup").style.display = "none";
+    }
+  </script>
+
+  <footer style="margin:40px 0; text-align:center; color:#fff;">
+    <p>© 2025 Chhattisgarh Tourism | Designed by Shadow Queen</p>
+  </footer>
+
+</body>
+</html>

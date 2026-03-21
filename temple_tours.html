@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Temple Trips of India</title>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/temple_tours.css') }}">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body class="temple-page">
+
+<!-- Background slideshow (img1..img12) --> 
+ <div class="background-slideshow" aria-hidden="true"> {% for i in range(1,13) %} 
+  <img src="{{ url_for('static', filename='images/img' ~ i ~ '.jpg') }}" alt="background {{ i }}"> {% endfor %} </div>"
+
+  <div class="logo-fixed">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo-img">
+  </div>
+
+  <!-- Page header - title -->
+  <header class="site-header glass-effect header-center">
+    <h1>Temple Trips of India</h1>
+    <p class="subtitle">Curated spiritual journeys across India's timeless temples</p>
+  </header>
+
+  <!-- Main content -->
+  <main class="main-wrapper">
+    <section class="intro-and-map">
+      <article class="intro-box glass-effect" id="intro">
+        <h2>Spiritual Essence of India</h2>
+
+        <p>India's temple heritage stands at the heart of the nation's cultural and spiritual life. Centuries-old sanctuaries, majestic temple towns, and small hilltop shrines together weave a vast tapestry of devotion that has inspired art, music, literature and daily rituals for generations.</p>
+        <p>From carved stone sanctums to golden domes, each temple tells its own story — a story of kings, artisans, saints and ordinary devotees. Many temples functioned as ancient universities, centers of commerce and hubs of social life; they remain living, breathing institutions today.</p>
+        <p>Traveling to temples is more than sightseeing — it is a pilgrimage that blends architecture, history, rhythm and ritual. The fragrance of incense, the sound of bells and hymn, the sight of pilgrims circumambulating the sanctum — all form a sensory language that is unmistakably Indian.</p>
+        <p>Across India's terrain — from the Himalayan heights to the peninsular coasts — temple architecture transforms with climate, materials and regional styles: the towering vimanas of the south, the intricate step-pyramids of medieval north, the ornate marble assembly halls and the austere mountain shrines.</p>
+        <p>Temples preserve living traditions: festivals that fill towns with color, processions that trace ancient routes, seasonal rituals synchronized with harvests and solstices, and devotional music that has been passed down for centuries. These events let you participate rather than merely observe.</p>
+      
+      </article>
+
+      <!-- Right: Map box -->
+      <aside class="map-box glass-effect">
+        <h3>Major Temple Locations</h3>
+        <div id="map" style="height:520px;"></div>
+        <p class="map-note">🛕 Click markers to open temple details and book a trip.</p>
+      </aside>
+    </section>
+
+    <!-- Search / Filter Section -->
+    <section class="main-tour-section">
+      <div class="filter-wrapper">
+        <input type="hidden" id="icon-box" name="travelType" />
+
+        <div class="icon-bar">
+          <div class="icon-box" data-value="flight" tabindex="0">
+            <img src="{{ url_for('static', filename='images/flight.png') }}" alt="Flights">
+            <span>Flight</span>
+          </div>
+          <div class="icon-box" data-value="train" tabindex="1">
+            <img src="{{ url_for('static', filename='images/train.png') }}" alt="Trains">
+            <span>Train</span>
+          </div>
+          <div class="icon-box" data-value="bus" tabindex="2">
+            <img src="{{ url_for('static', filename='images/bus.png') }}" alt="Buses">
+            <span>Bus</span>
+          </div>
+          <div class="icon-box" data-value="cab" tabindex="3">
+            <img src="{{ url_for('static', filename='images/cab.png') }}" alt="Cabs">
+            <span>Cabs</span>
+          </div>
+        </div>
+
+        <input type="hidden" id="selectedTravelType" name="travelType" />
+
+        <div class="filter-container">
+          <div class="search-label">SEARCH</div>
+
+          <div class="top-inputs">
+            <select id="state-select">
+              <option disabled selected>Select State</option>
+              <option>Andhra-Pradesh</option><option>Assam</option><option>bihar</option><option>Chhattisgarh</option>
+              <option>Delhi</option><option>Goa</option><option>Himachal-Pradesh</option><option>Kashmir</option>
+              <option>Kerala</option><option>Madhya-Pradesh</option><option>Maharashtra</option>
+              <option>Meghalaya</option><option>Mizoram</option><option>Punjab</option><option>Rajasthan</option>
+              <option>Sikkim</option><option>Tamil-Nadu</option><option>Telangana</option><option>Uttar-Pradesh</option>
+              <option>Tamil-Nadu</option><option>Uttarakhand</option><option>West-Bengal</option>
+            </select>
+
+            <select id="tour-type">
+              <option disabled selected>Select Tour Type</option>
+              <option>Adventure & Expedition</option>
+              <option>Cultural & Heritage</option>
+              <option>Luxury & Leisure</option>
+              <option>Wildlife & Eco-Tourism</option>
+              <option>Spiritual & Pilgrimage</option>
+            </select>
+
+            <div class="rooms-wrapper">
+              <select id="guest-count" onchange="document.querySelector('.room-count').innerText = Math.ceil(this.value / 2)">
+                <option disabled selected>Rooms & Guests</option>
+                <option value="1">1 Person</option><option value="2">2 People</option><option value="3">3 People</option>
+                <option value="4">4 People</option><option value="5">5 People</option><option value="6">6 People</option>
+                <option value="7">7 People</option>
+              </select>
+              <div class="room-output">
+                Rooms Needed: <span class="room-count">0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bottom-inputs">
+            <select id="from-city">
+              <option disabled selected>From City</option>
+              <optgroup label="Andhra Pradesh">
+                <option>Visakhapatnam</option><option>Araku Valley</option><option>Vijayawada</option>
+                <option>Tirupati</option><option>Amaravati</option>
+              </optgroup>
+              <optgroup label="Assam">
+                <option>Guwahati</option><option>Majuli</option><option>Tezpur</option><option>Jorhat</option><option>Sivasagar</option>
+              </optgroup>
+              <optgroup label="Bihar">
+                <option>Patna</option><option>Gaya</option><option>Rajgir</option><option>Nalanda</option><option>Vaishali</option>
+              </optgroup>
+              <optgroup label="Chhattisgarh">
+                <option>Raipur</option><option>Jagdalpur</option><option>Bhilai</option><option>Bilaspur</option><option>Kawardha</option>
+              </optgroup>
+              <optgroup label="Delhi">
+                <option>India Gate</option><option>Qutub Minar</option><option>Red Fort</option><option>Chandni Chowk</option><option>Lotus Temple</option>
+              </optgroup>
+              <optgroup label="Goa">
+                <option>Panaji</option><option>Calangute</option><option>Baga</option><option>Vasco da Gama</option><option>Palolem</option>
+              </optgroup>
+              <optgroup label="Himachal Pradesh">
+                <option>Shimla</option><option>Manali</option><option>Dharamshala</option><option>Dalhousie</option><option>Kullu</option>
+              </optgroup>
+              <optgroup label="Kashmir">
+                <option>Srinagar</option><option>Gulmarg</option><option>Pahalgam</option><option>Sonamarg</option><option>Leh</option>
+              </optgroup>
+              <optgroup label="Kerala">
+                <option>Kochi</option><option>Alleppey</option><option>Munnar</option><option>Thiruvananthapuram</option><option>Kumarakom</option>
+              </optgroup>
+            </select>
+
+            <select id="to-city">
+              <option disabled selected>To City</option>
+              <optgroup label="Andhra Pradesh">
+                <option>Visakhapatnam</option><option>Araku Valley</option><option>Vijayawada</option><option>Tirupati</option><option>Amaravati</option>
+              </optgroup>
+              <optgroup label="Assam">
+                <option>Guwahati</option><option>Majuli</option><option>Tezpur</option><option>Jorhat</option><option>Sivasagar</option>
+              </optgroup>
+              <optgroup label="Bihar">
+                <option>Patna</option><option>Gaya</option><option>Rajgir</option><option>Nalanda</option><option>Vaishali</option>
+              </optgroup>
+              <optgroup label="Chhattisgarh">
+                <option>Raipur</option><option>Jagdalpur</option><option>Bhilai</option><option>Bilaspur</option><option>Kawardha</option>
+              </optgroup>
+              <optgroup label="Delhi">
+                <option>India Gate</option><option>Qutub Minar</option><option>Red Fort</option><option>Chandni Chowk</option><option>Lotus Temple</option>
+              </optgroup>
+              <optgroup label="Goa">
+                <option>Panaji</option><option>Calangute</option><option>Baga</option><option>Vasco da Gama</option><option>Palolem</option>
+              </optgroup>
+              <optgroup label="Himachal Pradesh">
+                <option>Shimla</option><option>Manali</option><option>Dharamshala</option><option>Dalhousie</option><option>Kullu</option>
+              </optgroup>
+              <optgroup label="Kashmir">
+                <option>Srinagar</option><option>Gulmarg</option><option>Pahalgam</option><option>Sonamarg</option><option>Leh</option>
+              </optgroup>
+              <optgroup label="Kerala">
+                <option>Kochi</option><option>Alleppey</option><option>Munnar</option><option>Thiruvananthapuram</option><option>Kumarakom</option>
+              </optgroup>
+            </select>
+
+            <input type="date" id="departure-date" placeholder="Departure Date">
+            <input type="text" id="approx-budget" placeholder="Approx Budget">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Temples Cards (20) -->
+    <section class="temple-grid">
+      <h2 class="section-title">🛕 Famous Temples Across India</h2>
+      <div class="cards-grid" id="cards-grid">
+        {% set temples = [
+          ('Kedarnath Temple','Uttarakhand','One of the 12 Jyotirlingas, high-altitude shrine.',30.7352,79.0669,'img1.jpg'),
+          ('Tirupati Balaji','Andhra-Pradesh','World-famous Vaishnav temple.',13.6833,79.3472,'img2.jpg'),
+          ('Meenakshi Amman','Tamil-Nadu','Dravidian architecture, Meenakshi temple.',9.9195,78.1193,'img3.jpg'),
+          ('Golden Temple','Punjab','Holiest Sikh shrine in Amritsar.',31.6200,74.8765,'img4.jpg'),
+          ('Somnath Temple','Gujarat','Historical Jyotirlinga on Arabian coast.',20.8880,70.4012,'img5.jpg'),
+          ('Jagannath Temple','Odisha','Rath Yatra historic temple.',19.8048,85.8173,'img6.jpg'),
+          ('Kashi Vishwanath','Uttar-Pradesh','Ancient Shiva mandir in Varanasi.',25.3176,82.9739,'img7.jpg'),
+          ('Vaishno Devi','Jammu-Kashmir','Cave shrine of Goddess Vaishnavi.',33.0325,74.9497,'img8.jpg'),
+          ('Akshardham','Delhi','Modern temple showcasing heritage.',28.6127,77.2773,'img9.jpg'),
+          ('Ramanathaswamy','Tamil-Nadu','Sacred temple at Rameswaram.',9.2880,79.3129,'img10.jpg'),
+          ('Dwarkadhish','Gujarat','Krishna’s ancient temple in Dwarka.',22.2400,68.9670,'img11.jpg'),
+          ('Badrinath','Uttarakhand','Char Dham shrine in Himalayas.',30.7433,79.4913,'img12.jpg'),
+          ('Padmanabhaswamy','Kerala','Wealthy temple with historic vaults.',8.4828,76.9432,'img13.jpg'),
+          ('Lingaraja','Odisha','11th-century temple in Bhubaneswar.',20.2389,85.8333,'img14.jpg'),
+          ('Kamakhya','Assam','Powerful Shakti Peeth on Nilachal Hill.',26.1667,91.7086,'img15.jpg'),
+          ('Mahakaleshwar','Madhya-Pradesh','Ujjain’s famous Jyotirlinga.',23.1765,75.7885,'img16.jpg'),
+          ('Kanchipuram Temples','Tamil-Nadu','City of thousand temples.',12.8373,79.7016,'img17.jpg'),
+          ('Banke Bihari','Uttar-Pradesh','Vrindavan temple for Krishna devotees.',27.5743,77.6980,'img18.jpg'),
+          ('Shirdi Sai Baba','Maharashtra','Popular saint shrine in Shirdi.',19.7645,74.4760,'img19.jpg'),
+          ('Ranakpur Jain','Rajasthan','Marble Jain temple at Ranakpur.',25.1460,73.4747,'img20.jpg')
+        ] %}
+        {% for t in temples %}
+        <div class="temple-card glass-effect" data-lat="{{ t[3] }}" data-lon="{{ t[4] }}">
+          <img src="{{ url_for('static', filename='images/' ~ t[5]) }}" alt="{{ t[0] }}">
+          <h3>{{ t[0] }} — <small>{{ t[1] }}</small></h3>
+          <p class="card-desc">{{ t[2] }}</p>
+          <div class="card-actions">
+  <button class="view-btn"
+    onclick="focusOnMap('{{ t[3] }}', '{{ t[4] }}', '{{ t[0] }}')">
+    View on Map
+  </button>
+
+  <button class="book-btn"
+    onclick="openBooking('{{ t[0] }}', '{{ t[5] }}')">
+    Book Now
+  </button>
+</div>
+
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+  </main>
+
+  <!-- booking modal -->
+  <div class="modal-overlay" id="modal-overlay"></div>
+  <div class="booking-modal glass-effect" id="booking-modal" aria-hidden="true">
+    <button class="modal-close" onclick="closeBooking()">✕</button>
+    <h3 id="booking-title">Book Your Spiritual Trip</h3>
+    <img id="booking-img" src="" alt="" class="booking-img">
+    <label>Guests:</label>
+    <input type="number" id="booking-guests" min="1" value="1">
+    <label>Days:</label>
+    <input type="number" id="booking-days" min="1" value="1">
+    <label>Travel Type:</label>
+    <input type="text" id="booking-travel" readonly>
+    <div class="modal-actions">
+      <button class="confirm-btn" id="confirm-book">Confirm ✅</button>
+    </div>
+  </div>
+
+  <footer class="site-footer glass-effect">
+    <p>© 2025 Temple Trips of India | Designed by_PixelQueen</p>
+  </footer>
+
+  <!----maping---->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Initialize map
+    const map = L.map('map', {zoomControl: true}).setView([22.0, 80.0], 5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const templeData = [
+      {"name":"Kedarnath Temple","lat":30.7352,"lon":79.0669},
+      {"name":"Tirupati Balaji","lat":13.6833,"lon":79.3472},
+      {"name":"Meenakshi Amman","lat":9.9195,"lon":78.1193},
+      {"name":"Golden Temple","lat":31.6200,"lon":74.8765},
+      {"name":"Somnath Temple","lat":20.8880,"lon":70.4012},
+      {"name":"Jagannath Temple","lat":19.8048,"lon":85.8173},
+      {"name":"Kashi Vishwanath","lat":25.3176,"lon":82.9739},
+      {"name":"Vaishno Devi","lat":33.0325,"lon":74.9497},
+      {"name":"Akshardham","lat":28.6127,"lon":77.2773},
+      {"name":"Ramanathaswamy","lat":9.2880,"lon":79.3129},
+      {"name":"Dwarkadhish","lat":22.2400,"lon":68.9670},
+      {"name":"Badrinath","lat":30.7433,"lon":79.4913},
+      {"name":"Padmanabhaswamy","lat":8.4828,"lon":76.9432},
+      {"name":"Lingaraja","lat":20.2389,"lon":85.8333},
+      {"name":"Kamakhya","lat":26.1667,"lon":91.7086},
+      {"name":"Mahakaleshwar","lat":23.1765,"lon":75.7885},
+      {"name":"Kanchipuram Temples","lat":12.8373,"lon":79.7016},
+      {"name":"Banke Bihari","lat":27.5743,"lon":77.6980},
+      {"name":"Shirdi Sai Baba","lat":19.7645,"lon":74.4760},
+      {"name":"Ranakpur Jain","lat":25.1460,"lon":73.4747}
+    ];
+
+    const markers = {};
+    templeData.forEach(t => {
+      const m = L.marker([t.lat, t.lon]).addTo(map).bindPopup(`<strong>${t.name}</strong><br><button onclick="openBooking('${t.name}','')">Book</button>`);
+      markers[t.name] = m;
+    });
+
+    function focusOnMap(lat, lon, name){
+      map.setView([lat, lon], 9, {animate:true});
+      if(markers[name]) markers[name].openPopup();
+    }
+
+    const overlay = document.getElementById('modal-overlay');
+    const modal = document.getElementById('booking-modal');
+    const bookingTitle = document.getElementById('booking-title');
+    const bookingImg = document.getElementById('booking-img');
+    const bookingTravel = document.getElementById('booking-travel');
+    const confirmBtn = document.getElementById('confirm-book');
+
+    function openBooking(place, img){
+      bookingTitle.innerText = 'Book — ' + place;
+      if(img) bookingImg.src = "{{ url_for('static', filename='images') }}/" + img;
+      else bookingImg.src = "{{ url_for('static', filename='images/img1.jpg') }}";
+      bookingImg.style.display = 'block';
+      overlay.style.display = 'block';
+      modal.style.display = 'block';
+      modal.setAttribute('aria-hidden','false');
+      const tv = document.getElementById('selectedTravelType').value || '';
+      bookingTravel.value = tv;
+    }
+
+    function closeBooking(){
+      overlay.style.display = 'none';
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden','true');
+    }
+
+    overlay.onclick = closeBooking;
+    document.querySelector('.modal-close').onclick = closeBooking;
+
+    confirmBtn.onclick = () => {
+      const guests = document.getElementById('booking-guests').value;
+      const days = document.getElementById('booking-days').value;
+      alert('✅ Booking confirmed for ' + bookingTitle.innerText + '\\nGuests: ' + guests + ', Days: ' + days + '\\nTravel: ' + bookingTravel.value);
+      closeBooking();
+    };
+
+    // Icon bar selection behaviour
+    document.querySelectorAll('.icon-box').forEach(el => {
+      el.addEventListener('click', ()=> {
+        document.querySelectorAll('.icon-box').forEach(x=> x.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('selectedTravelType').value = el.dataset.value;
+      });
+      el.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+      });
+    });
+
+    document.querySelectorAll('.temple-card .view-btn').forEach(b => {
+      b.addEventListener('click', (ev)=>{
+      });
+    });
+
+
+    window.addEventListener('load', ()=> {
+      document.querySelectorAll('.background-slideshow img').forEach(i => i.style.willChange = 'opacity,transform');
+    });
+  </script>
+</body>
+</html>

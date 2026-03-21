@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Goa Tourism</title>
+
+  <!-- Goa-specific CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/goa.css') }}">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body class="goa-page">
+
+  <!-- Title Section -->
+  <header class="title-section">
+    <h1>Goa</h1>
+    <h3>The Pearl of the Orient — Beaches, Heritage & Nightlife</h3>
+  </header>
+
+  <!-- Main Content -->
+  <section class="bihar-content">
+    <!-- Left Side: Intro -->
+    <div class="intro-box glass-effect">
+      <h2>Discover Goa</h2>
+
+      <p>
+        Goa, India’s smallest state by area, is world-famous for its golden beaches, Portuguese-influenced
+        architecture, spice-scented cuisine and lively festivals. From the party beaches of North Goa to
+        the tranquil coves of South Goa, the state offers everything — water sports, heritage trails,
+        wildlife escapes, and laidback coastal vibes.
+      </p>
+
+      <p>
+        History, culture and nature blend in Goa — visit UNESCO-style churches like the Basilica of Bom Jesus,
+        explore 17th-century forts, trek to Dudhsagar Falls, or simply relax with a cup of fresh seafood and
+        a sunset over the Arabian Sea.
+      </p>
+
+      <p>
+        Best time to visit: November to March (pleasant weather, festival season). For quieter beaches, visit
+        in shoulder months.
+      </p>
+    </div>
+
+    <!-- Right Side: Map -->
+    <div class="map-box glass-effect">
+      <h3>Map of Goa</h3>
+      <div id="map" style="height:420px; width:100%; border-radius:7px;"></div>
+      <p class="map-note">Markers show major attractions. State boundary is drawn from GeoJSON.</p>
+    </div>
+  </section>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Map init (center roughly over Goa)
+    const map = L.map("map", { zoomControl: true, scrollWheelZoom: true }).setView([15.4909, 73.8278], 10);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(map);
+
+    // Load Goa GeoJSON boundary
+    fetch("{{ url_for('static', filename='geojson/goa.geojson') }}")
+      .then(r => r.json())
+      .then(geojson => {
+        const boundary = L.geoJSON(geojson, {
+          style: { color: "#004d40", weight: 3, opacity: 1, fill: false }
+        }).addTo(map);
+        map.fitBounds(boundary.getBounds(), { padding: [20,20] });
+      })
+      .catch(e => console.error("Boundary load error:", e));
+
+    // Markers
+    L.marker([15.5483, 73.7514]).addTo(map).bindPopup("🏖 Baga Beach (North Goa)");
+    L.marker([15.5020, 73.7806]).addTo(map).bindPopup("🕍 Fort Aguada");
+    L.marker([15.3146, 74.0188]).addTo(map).bindPopup("🌊 Palolem Beach (South Goa)");
+    L.marker([15.4909, 73.8278]).addTo(map).bindPopup("⛪ Basilica of Bom Jesus (Old Goa)");
+    L.marker([15.4066, 74.0686]).addTo(map).bindPopup("🌿 Dudhsagar Waterfalls (near Mollem)");
+  </script>
+
+  <!------------------------------------------------state box--------------------------------------------------->
+  <section>
+    <div class="state-box theme-bihar">
+      <h2 class="state-title">Top Tourist Places in Goa</h2>
+
+      <div class="cities-container">
+
+        <!-- North Goa -->
+        <div class="city-box">
+          <h3 class="city-title">North Goa</h3>
+          <ul>
+            <li>Baga Beach & Calangute</li>
+            <li>Fort Aguada & Lighthouse</li>
+            <li>Vagator & Anjuna (beaches & flea markets)</li>
+            <li>Nightlife & beach shacks</li>
+          </ul>
+        </div>
+
+        <!-- Old Goa -->
+        <div class="city-box">
+          <h3 class="city-title">Old Goa</h3>
+          <ul>
+            <li>Basilica of Bom Jesus</li>
+            <li>Se Cathedral</li>
+            <li>Church of St. Francis of Assisi</li>
+          </ul>
+        </div>
+
+        <!-- South Goa -->
+        <div class="city-box">
+          <h3 class="city-title">South Goa</h3>
+          <ul>
+            <li>Palolem Beach</li>
+            <li>Colva & Benaulim</li>
+            <li>Agonda Beach</li>
+          </ul>
+        </div>
+
+        <!-- Mollem & Wildlife -->
+        <div class="city-box">
+          <h3 class="city-title">Mollem & Wildlife</h3>
+          <ul>
+            <li>Dudhsagar Waterfalls</li>
+            <li>Biodiversity in Mollem National Park</li>
+            <li>Birdwatching & spice plantations</li>
+          </ul>
+        </div>
+
+        <!-- Markets & Culture -->
+        <div class="city-box">
+          <h3 class="city-title">Markets & Culture</h3>
+          <ul>
+            <li>Anjuna Flea Market</li>
+            <li>Mapusa Market</li>
+            <li>Goan Carnival & Shigmo festivals</li>
+          </ul>
+        </div>
+
+        <!-- Other attractions -->
+        <div class="city-box">
+          <h3 class="city-title">Other Famous Attractions</h3>
+          <ul>
+            <li>Chapora Fort (Dil Chahta Hai point)</li>
+            <li>Butterfly Conservatory & Spice Plantations</li>
+            <li>River cruises on Mandovi</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-------------------------------places section---------------------------------------->
+  <section class="places-section">
+    <h2 class="section-title">Popular Spots in Goa</h2>
+    <div class="places-grid">
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/baga.jpg') }}" alt="Baga Beach">
+        <h3>Baga Beach</h3>
+        <p>Famous for parties, water sports and beach shacks.</p>
+        <button class="book-btn" onclick="openBookingForm('Baga Beach')">Book Now</button>
+      </div>
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/fort_aguada.jpg') }}" alt="Fort Aguada">
+        <h3>Fort Aguada</h3>
+        <p>17th-century Portuguese fort with panoramic ocean views.</p>
+        <button class="book-btn" onclick="openBookingForm('Fort Aguada')">Book Now</button>
+      </div>
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/palolem.jpg') }}" alt="Palolem Beach">
+        <h3>Palolem Beach</h3>
+        <p>Beautiful crescent beach — calm, scenic and perfect for retreats.</p>
+        <button class="book-btn" onclick="openBookingForm('Palolem Beach')">Book Now</button>
+      </div>
+
+      <div class="place-card glass-effect">
+        <img src="{{ url_for('static', filename='images/dudhsagar.jpg') }}" alt="Dudhsagar Waterfalls">
+        <h3>Dudhsagar Waterfalls</h3>
+        <p>Majestic waterfalls — best seen during/after monsoon season.</p>
+        <button class="book-btn" onclick="openBookingForm('Dudhsagar Waterfalls')">Book Now</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-------------------------------- Stay & Food Section --------------------------------->
+  <section class="stay-food-section">
+    <div class="intro-highlight glass-effect">
+      <p>
+        Goa offers beach resorts, boutique stays, heritage homes and budget guesthouses. Savor local Goan cuisine
+        in seaside shacks and Portuguese bakeries. Remember to respect local rules on beaches and nightlife.
+      </p>
+    </div>
+
+    <div class="mirror-title glass-effect">
+      <h2>🏨 Recommended Stays</h2>
+    </div>
+
+    <div class="hotels-slider">
+      <div class="hotel-card glass-effect">
+        <div class="hotel-images">
+          <img src="{{ url_for('static', filename='images/goa_hotel1.jpg') }}" alt="Beach Resort">
+          <img src="{{ url_for('static', filename='images/goa_room1.jpg') }}" alt="Room">
+        </div>
+        <h3>Sunset Bay Resort</h3>
+        <p>⭐️⭐️⭐️⭐️ | Approx Budget: ₹6000/night</p>
+        <p class="comment">Beachfront resort with pool & private access.</p>
+        <button class="book-btn">Book Now</button>
+      </div>
+
+      <div class="hotel-card glass-effect">
+        <div class="hotel-images">
+          <img src="{{ url_for('static', filename='images/goa_guesthouse.jpg') }}" alt="Guesthouse">
+          <img src="{{ url_for('static', filename='images/goa_room2.jpg') }}" alt="Room">
+        </div>
+        <h3>Heritage Guesthouse, Old Goa</h3>
+        <p>⭐️⭐️⭐️ | Approx Budget: ₹2800/night</p>
+        <p class="comment">Charming heritage stay near colonial churches.</p>
+        <button class="book-btn">Book Now</button>
+      </div>
+
+      <div class="hotel-card glass-effect">
+        <div class="hotel-images">
+          <img src="{{ url_for('static', filename='images/goa_cabin.jpg') }}" alt="Cabin">
+          <img src="{{ url_for('static', filename='images/goa_room3.jpg') }}" alt="Room">
+        </div>
+        <h3>Palolem Beach Cottages</h3>
+        <p>⭐️⭐️⭐️ | Approx Budget: ₹2200/night</p>
+        <p class="comment">Simple beach cottages with direct sand access.</p>
+        <button class="book-btn">Book Now</button>
+      </div>
+    </div>
+
+    <div class="mirror-title glass-effect">
+      <h2>🍛 Must-Try Goan Delicacies</h2>
+    </div>
+
+    <div class="foods-grid">
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/fish_curry.jpg') }}" alt="Goan Fish Curry">
+        <h3>Goan Fish Curry</h3>
+        <p>Coconut-based tangy and spicy curry — must-try seafood.</p>
+      </div>
+
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/vindaloo.jpg') }}" alt="Vindaloo">
+        <h3>Vindaloo</h3>
+        <p>Fiery curry with Portuguese influence — try the pork variant.</p>
+      </div>
+
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/bebinca.jpg') }}" alt="Bebinca">
+        <h3>Bebinca</h3>
+        <p>Traditional layered Goan dessert — rich and sweet.</p>
+      </div>
+
+      <div class="food-card glass-effect">
+        <img src="{{ url_for('static', filename='images/feni.jpg') }}" alt="Feni">
+        <h3>Feni</h3>
+        <p>Local liquor made from cashew or coconut — Goan specialty.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay"></div>
+  <div class="booking-modal glass-effect">
+    <h3>Book Your Stay</h3>
+    <label>Guests:</label>
+    <input type="number" min="1" value="1">
+    <label>Rooms:</label>
+    <input type="number" min="1" value="1">
+    <button class="confirm-btn">Confirm ✅</button>
+  </div>
+
+  <!-- JS: booking popup + hotel slider -->
+  <script>
+    // Booking Popup
+    const overlay = document.querySelector(".modal-overlay");
+    const modal = document.querySelector(".booking-modal");
+    const bookBtns = document.querySelectorAll(".book-btn");
+    const confirmBtn = document.querySelector(".confirm-btn");
+
+    bookBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        overlay.style.display = "block";
+        modal.style.display = "block";
+      });
+    });
+    overlay.addEventListener("click", () => {
+      overlay.style.display = "none";
+      modal.style.display = "none";
+    });
+    confirmBtn.addEventListener("click", () => {
+      alert("✅ Booking confirmed!");
+      overlay.style.display = "none";
+      modal.style.display = "none";
+    });
+
+    // Hotels Image Slider
+    document.querySelectorAll('.hotel-card').forEach(card => {
+      const images = card.querySelectorAll('img');
+      let index = 0;
+      images.forEach((img, i) => img.style.display = (i === 0) ? 'block' : 'none');
+      setInterval(() => {
+        images.forEach(img => img.style.display = 'none');
+        images[index].style.display = 'block';
+        index = (index + 1) % images.length;
+      }, 2500);
+    });
+
+    function openBookingForm(placeName) {
+      overlay.style.display = "block";
+      modal.style.display = "block";
+    }
+  </script>
+
+  <!------------------------------------------------ex4-------------------------------------------------->
+  <section class="attractions-section">
+    <h2 class="section-title">✨ Top Attractions of Goa</h2>
+    <p class="section-intro">
+      Beaches, forts, waterfalls and heritage churches — Goa packs variety into a tiny state.
+    </p>
+
+    <!-- International Level -->
+    <h3 class="sub-title">🌍 International Level Attractions</h3>
+    <div class="cards-grid">
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/bom_jesus.jpg') }}" alt="Basilica of Bom Jesus">
+        <h4>Basilica of Bom Jesus</h4>
+        <p><b>Budget:</b> Free–₹200</p>
+        <p><b>Best Time:</b> Oct–Feb</p>
+        <p class="comment">UNESCO-style heritage church with rich history.</p>
+        <button class="book-btn" onclick="openBooking('Basilica of Bom Jesus')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/dudhsagar.jpg') }}" alt="Dudhsagar">
+        <h4>Dudhsagar Waterfalls</h4>
+        <p><b>Budget:</b> ₹300–₹1000</p>
+        <p><b>Best Time:</b> Sep–Dec</p>
+        <p class="comment">Powerful waterfall inside Mollem national park.</p>
+        <button class="book-btn" onclick="openBooking('Dudhsagar Waterfalls')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/fort_aguada.jpg') }}" alt="Fort Aguada">
+        <h4>Fort Aguada</h4>
+        <p><b>Budget:</b> Free–₹200</p>
+        <p><b>Best Time:</b> Oct–Feb</p>
+        <p class="comment">Iconic Portuguese fort with lighthouse & sea views.</p>
+        <button class="book-btn" onclick="openBooking('Fort Aguada')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/palolem.jpg') }}" alt="Palolem">
+        <h4>Palolem Beach</h4>
+        <p><b>Budget:</b> ₹300–₹1200</p>
+        <p><b>Best Time:</b> Oct–Mar</p>
+        <p class="comment">Peaceful beach ideal for yoga & quiet stays.</p>
+        <button class="book-btn" onclick="openBooking('Palolem Beach')">Book Now</button>
+      </div>
+    </div>
+
+    <!-- National Level -->
+    <h3 class="sub-title">🇮🇳 National Level Attractions</h3>
+    <div class="cards-grid">
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/anjauna.jpg') }}" alt="Anjuna">
+        <h4>Anjuna & Vagator</h4>
+        <p><b>Budget:</b> ₹300–₹1500</p>
+        <p><b>Best Time:</b> Nov–Feb</p>
+        <p class="comment">Flea markets, cliffs and sunset viewpoints.</p>
+        <button class="book-btn" onclick="openBooking('Anjuna & Vagator')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/mandovi_cruise.jpg') }}" alt="Mandovi Cruise">
+        <h4>Mandovi River Cruises</h4>
+        <p><b>Budget:</b> ₹400–₹1500</p>
+        <p><b>Best Time:</b> Oct–Mar</p>
+        <p class="comment">Evening cruises with music, dance & local food.</p>
+        <button class="book-btn" onclick="openBooking('Mandovi Cruise')">Book Now</button>
+      </div>
+
+      <div class="attraction-card">
+        <img src="{{ url_for('static', filename='images/spice_plantation.jpg') }}" alt="Spice Plantation">
+        <h4>Spice Plantations</h4>
+        <p><b>Budget:</b> ₹300–₹800</p>
+        <p><b>Best Time:</b> Year-round</p>
+        <p class="comment">Plantation tours, tastings and village experiences.</p>
+        <button class="book-btn" onclick="openBooking('Spice Plantation')">Book Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Popup Form -->
+  <div class="booking-popup" id="bookingPopup">
+    <div class="booking-box">
+      <span class="close-btn" onclick="closeBooking()">&times;</span>
+      <h3 id="bookingTitle">Book Now</h3>
+      <form onsubmit="event.preventDefault(); alert('✅ Booking submitted!'); closeBooking();">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="people">No. of People:</label>
+        <input type="number" id="people" min="1" required>
+
+        <label for="days">No. of Days:</label>
+        <input type="number" id="days" min="1" required>
+
+        <button type="submit" class="confirm-btn">Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openBooking(placeName) {
+      document.getElementById("bookingTitle").innerText = "Book: " + placeName;
+      document.getElementById("bookingPopup").style.display = "flex";
+    }
+
+    function closeBooking() {
+      document.getElementById("bookingPopup").style.display = "none";
+    }
+  </script>
+
+  <footer style="margin:40px 0; text-align:center; color:#fff;">
+    <p>© 2025 Goa Tourism | Designed by Shadow Queen</p>
+  </footer>
+
+</body>
+</html>

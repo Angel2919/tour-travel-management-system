@@ -6,38 +6,39 @@ A simple and functional Tour & Travel Management System developed using Python, 
 
 🚀 Features
 
-- User Registration & Login System
-- Explore Travel Destinations
-- Booking Functionality
-- Contact Form
-- Database Integration (MySQL)
+- User Registration & Login System  
+- Explore Travel Destinations  
+- Booking Functionality  
+- Contact Form  
+- Database Integration (MySQL)  
 
 ---
 
 🛠️ Technologies Used
 
-- Python (Backend)
-- HTML, CSS (Frontend)
-- MySQL (Database)
+- Python (Backend)  
+- HTML, CSS (Frontend)  
+- MySQL (Database)  
 
 ---
 
 📂 Project Structure
 
-- app.py (Main application)
-- templates/ (HTML files)
-- static/ (CSS, images)
-- Other Python modules for booking, login, register, etc.
+- app.py (Main application)  
+- templates/ (HTML files)  
+- static/ (CSS, images)  
+- Other Python modules for booking, login, register, etc.  
 
 ---
 
 ▶️ How to Run
 
-1. Install Python
-2. Install required libraries (Flask, MySQL connector)
-3. Setup MySQL database
-4. Run `app.py`
-5. Open browser and go to: http://127.0.0.1:5000/
+1. Install Python  
+2. Install required libraries (Flask, MySQL connector)  
+3. Setup MySQL database  
+4. Run `create_tables.py` to create required database tables  
+5. Run `app.py`  
+6. Open browser and go to: http://127.0.0.1:5000/  
 
 ---
 
@@ -48,5 +49,4 @@ This is a beginner-friendly project created for learning purposes and can be imp
 ---
 
 👩‍💻 Developed By
-
-Pinki_Kumari
+_Pinki Kumari
